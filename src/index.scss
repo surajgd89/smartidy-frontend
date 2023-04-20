@@ -1,0 +1,140 @@
+@import './assets/fonts/font-awesome/css/all.css';
+@mixin mobile {
+    @media (max-width: 575.98px) {
+        @content;
+    }
+}
+:root {
+    --font: 'Poppins';
+    // Font Weight
+    --fw-thin: 100;
+    --fw-ex-light: 200;
+    --fw-light: 300;
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semi-bold: 600;
+    --fw-bold: 700;
+    --fw-ex-bold: 800;
+    --fw-black: 900;
+
+    //Colors
+
+    --secondary: #212121;
+    --secondary-light: #737373;
+
+    --border: #d0d4da;
+    --link: #065fd4;
+
+    //Border-Radius
+    --radius: 6px;
+
+    @include mobile {
+        --radius: 4px;
+    }
+
+    //Social
+    --email-color: #cc4d42;
+    --sms-color: #0077b5;
+    --whatsapp-color: #25d366;
+    --messenger-color: #0084ff;
+    --facebook-color: #3b5998;
+    --instagram-color: #e4405f;
+    --twitter-color: #55acee;
+    --linkedin-color: #0077b5;
+    --youtube-color: #cd201f;
+    --tiktok-color: #ee1d52;
+    --snapchat-color: #fffa37;
+    --skype-color: #00aff0;
+    --tumbler-color: #00405d;
+    --quora-color: #b92b27;
+    --pinterest-color: #bd081c;
+    --behance-color: #1769ff;
+    --dribble-color: #ea4c89;
+    --telegram-color: #3390ec;
+}
+
+::-moz-selection {
+    color: #fff;
+    background: var(--primary);
+}
+
+::selection {
+    color: #fff;
+    background: var(--primary);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--secondary);
+    position: relative;
+    background-color: #303030;
+    opacity: 1;
+    line-height: 1.5;
+    background-image: linear-gradient(
+            #3b3b3b 1.2000000000000002px,
+            transparent 1.2000000000000002px
+        ),
+        linear-gradient(
+            90deg,
+            #3b3b3b 1.2000000000000002px,
+            transparent 1.2000000000000002px
+        ),
+        linear-gradient(
+            #3b3b3b 0.6000000000000001px,
+            transparent 0.6000000000000001px
+        ),
+        linear-gradient(
+            90deg,
+            #3b3b3b 0.6000000000000001px,
+            #303030 0.6000000000000001px
+        );
+    background-size: 30px 30px, 30px 30px, 6px 6px, 6px 6px;
+    background-position: -1.2000000000000002px -1.2000000000000002px,
+        -1.2000000000000002px -1.2000000000000002px,
+        -0.6000000000000001px -0.6000000000000001px,
+        -0.6000000000000001px -0.6000000000000001px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: var(--fw-regular);
+}
+
+strong {
+    font-weight: var(--fw-medium);
+}
+
+a {
+    outline: 0;
+    border: 0;
+    text-decoration: none;
+}
+
+button {
+    outline: 0;
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}

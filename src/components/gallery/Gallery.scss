@@ -1,0 +1,211 @@
+@mixin mobile {
+    @media (max-width: 575.98px) {
+        @content;
+    }
+}
+
+//GALLERY
+.gallery {
+    background-color: #ffffff;
+    padding: 30px;
+
+    @include mobile {
+        padding: 20px;
+    }
+
+    .header {
+        margin-bottom: 0;
+    }
+    .content {
+        display: flex;
+        flex-direction: column;
+        .gallery-sec {
+            margin-top: 30px;
+            order: -1;
+
+            @include mobile {
+                margin-top: 25px;
+            }
+
+            .title {
+                color: var(--secondary);
+                text-align: center;
+                font-size: 24px;
+                font-weight: var(--fw-semi-bold);
+                margin-bottom: 20px;
+                position: relative;
+
+                @include mobile {
+                    font-size: 20px;
+                }
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: auto;
+                    bottom: -7px;
+                    margin: auto;
+                    max-width: 25%;
+                    height: 3px;
+                    background: var(--primary);
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: auto;
+                    bottom: -6px;
+                    margin: auto;
+                    max-width: 50%;
+                    height: 1px;
+                    background: var(--border);
+                }
+            }
+
+            .desc {
+                color: var(--secondary-light);
+                text-align: center;
+                font-size: 16px;
+                font-weight: var(--fw-regular);
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+                margin-bottom: 30px;
+
+                @include mobile {
+                    margin-bottom: 20px;
+                    font-size: 14px;
+                }
+            }
+
+            .images-area {
+                .images-list {
+                    display: grid;
+                    grid-gap: 20px;
+                    grid-template-columns: auto auto;
+                    max-width: 600px;
+                    margin: 0 auto;
+
+                    @include mobile {
+                        grid-gap: 15px;
+                    }
+
+                    .img-item {
+                        transition: all 300ms;
+                        overflow: hidden;
+                        display: inline-flex;
+                        cursor: pointer;
+
+                        img {
+                            max-width: 100%;
+                            max-height: 100%;
+                            transition: all 300ms;
+                            border-radius: var(--radius);
+                        }
+                    }
+                }
+            }
+
+            .videos-area {
+                .videos-list {
+                    .video-item {
+                        display: inline-flex;
+                        align-items: center;
+                        width: 100%;
+                        max-width: 100%;
+                        min-height: 60px;
+                        padding: 15px;
+                        border: 1px solid var(--border);
+                        outline: 0;
+                        text-decoration: none;
+                        margin-bottom: 15px;
+                        border-radius: var(--radius);
+                        transition: all 300ms;
+
+                        @include mobile {
+                            min-height: 50px;
+                            padding: 10px 15px;
+                            margin-bottom: 10px;
+                        }
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        .ico {
+                            margin-right: 15px;
+                            display: inline-flex;
+                            color: var(--secondary-light);
+                            i {
+                                margin: 0;
+                                font-size: 18px;
+
+                                @include mobile {
+                                    margin: 0;
+                                    font-size: 16px;
+                                }
+                            }
+                        }
+
+                        .name {
+                            margin-right: auto;
+                            display: inline-flex;
+                            font-size: 16px;
+                            color: var(--secondary);
+
+                            @include mobile {
+                                font-size: 14px;
+                            }
+                        }
+
+                        &:hover {
+                            border-color: var(--primary);
+                            box-shadow: 0 0 0 1px var(--primary);
+
+                            .ico {
+                                color: var(--youtube-color);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .info-message {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                max-width: 500px;
+                margin: 0 auto;
+                padding: 20px;
+                border-radius: var(--radius);
+
+                .info-text {
+                    color: var(--primary);
+                    margin-top: 20px;
+                    font-size: 16px;
+                    font-weight: var(--fw-regular);
+
+                    @include mobile {
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            &.not-configured {
+                order: 0;
+                .images-list,
+                .videos-list {
+                    display: none;
+                }
+                .info-message {
+                    display: flex;
+                }
+            }
+        }
+    }
+}

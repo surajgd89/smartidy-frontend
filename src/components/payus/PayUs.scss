@@ -1,0 +1,270 @@
+@mixin mobile {
+    @media (max-width: 575.98px) {
+        @content;
+    }
+}
+//PAY-US
+.payus {
+    background-color: #ffffff;
+    padding: 30px;
+    @include mobile {
+        padding: 20px;
+    }
+
+    .content {
+        .upi-sec {
+            margin-bottom: 30px;
+
+            @include mobile {
+                margin-bottom: 20px;
+            }
+
+            .upi-btn {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100px;
+                padding: 20px;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                text-decoration: none;
+                outline: 0;
+                transition: all 300ms;
+                cursor: pointer;
+                @include mobile {
+                    min-height: 90px;
+                    padding: 15px;
+                }
+
+                &:hover {
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 1px var(--primary);
+                }
+
+                span {
+                    display: block;
+                }
+
+                span:nth-child(1) {
+                    font-size: 24px;
+                    font-weight: var(--fw-semi-bold);
+                    color: var(--secondary);
+
+                    @include mobile {
+                        font-size: 20px;
+                    }
+                }
+                span:nth-child(2) {
+                    font-size: 12px;
+                    font-weight: var(--fw-medium);
+                    color: var(--secondary-light);
+                    margin-top: 5px;
+                    text-align: center;
+                }
+
+                .upi-logos {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 10px;
+
+                    img {
+                        margin: 0 10px;
+                    }
+                }
+            }
+
+            .upi-id {
+                margin-top: 10px;
+                font-size: 16px;
+                font-weight: var(--fw-medium);
+                text-align: center;
+                color: var(--primary);
+                @include mobile {
+                    font-size: 14px;
+                    margin-top: 8px;
+                }
+
+                i {
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        .pg-sec {
+            margin-bottom: 30px;
+
+            @include mobile {
+                margin-bottom: 20px;
+            }
+            .pg-btn {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                min-height: 100px;
+                padding: 20px;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                text-decoration: none;
+                outline: 0;
+
+                @include mobile {
+                    min-height: 90px;
+                    padding: 15px;
+                }
+
+                &:hover {
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 1px var(--primary);
+                }
+
+                span {
+                    display: block;
+                }
+
+                span:nth-child(1) {
+                    font-size: 24px;
+                    font-weight: var(--fw-semi-bold);
+                    color: var(--secondary);
+
+                    @include mobile {
+                        font-size: 20px;
+                    }
+                }
+                span:nth-child(2) {
+                    font-size: 12px;
+                    font-weight: var(--fw-medium);
+                    color: var(--secondary-light);
+                    margin-top: 5px;
+                    text-align: center;
+                }
+
+                .pg-logos {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 10px;
+
+                    img {
+                        margin: 0 10px;
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
+
+        .account-sec {
+            margin-bottom: 30px;
+
+            @include mobile {
+                margin-bottom: 20px;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+            .account-data {
+                padding: 20px;
+                position: relative;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+
+                @include mobile {
+                    padding: 15px;
+                }
+
+                &:hover {
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 1px var(--primary);
+                }
+                .acc-row {
+                    margin-bottom: 15px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    @include mobile {
+                        margin-bottom: 0;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                        border-bottom: 1px dashed var(--border);
+
+                        &:last-child {
+                            border-bottom: 0;
+                            padding-bottom: 0;
+                        }
+
+                        &:first-of-type {
+                            padding-top: 0;
+                        }
+                    }
+
+                    .lbl {
+                        margin-bottom: 5px;
+                        font-size: 14px;
+                        font-weight: var(--fw-medium);
+                        color: var(--secondary-light);
+
+                        @include mobile {
+                            font-size: 12px;
+                            margin-bottom: 0;
+                        }
+                    }
+                    .val {
+                        font-size: 16px;
+                        font-weight: var(--fw-medium);
+
+                        @include mobile {
+                            font-size: 14px;
+                        }
+
+                        i {
+                            margin-left: 10px;
+                        }
+                    }
+                }
+                .copy {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    z-index: 1;
+                    cursor: pointer;
+                    padding: 15px;
+                    color: #fff;
+                    background-color: var(--primary);
+                    border-bottom-left-radius: 10px;
+                    border-top-right-radius: 6px;
+                    @include mobile {
+                        padding: 10px;
+                        border-top-right-radius: 0;
+                    }
+                }
+            }
+        }
+
+        .not-configured {
+            pointer-events: none;
+            position: relative;
+            text-align: center;
+            background: #f5f5f5;
+            opacity: 0.5;
+            padding: 25px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+
+            i {
+                font-size: 28px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

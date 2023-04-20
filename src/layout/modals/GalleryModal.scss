@@ -1,0 +1,63 @@
+.gallery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(27, 27, 27, 0.541);
+    display: flex;
+    align-items: center;
+    z-index: 4;
+    animation: fadeIn 0.3s ease-in-out 0.2s both;
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .gallery-big-img {
+        display: block;
+        max-width: 95%;
+        max-height: 95%;
+        margin: 30px auto;
+        border: 4px solid #fff;
+    }
+
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 26px;
+        color: #ffffff;
+        z-index: 5;
+        cursor: pointer;
+    }
+
+    .arrow {
+        font-size: 22px;
+        color: #ffffff;
+        z-index: 5;
+        top: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        cursor: pointer;
+
+        &.arrows-left {
+            left: 0;
+        }
+
+        &.arrows-right {
+            right: 0;
+        }
+    }
+}
