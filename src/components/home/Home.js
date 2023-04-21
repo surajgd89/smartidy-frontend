@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import moment from 'moment/moment';
 import vCardsJS from 'vcards-js';
 import { saveAs } from 'file-saver';
@@ -16,7 +16,7 @@ function Home({ modal, refElement }) {
    let setModalOpen = modal;
    const { UserData } = useGlobalContext();
    const [IsBusinessProfile, setIsBusinessProfile] = useState(UserData.config.IsBusinessProfile);
-   const [BoxStyle, setBoxStyle] = useState({});
+   const [BoxStyle, setBoxStyle] = useState({ minHeight: 'auto' });
 
 
 
@@ -111,10 +111,15 @@ function Home({ modal, refElement }) {
       return { minHeight: minHt }
    }
 
-   useEffect(() => {
+   useLayoutEffect(() => {
+      console.log(BoxStyle)
       setBoxStyle(StyleCalculation())
-      window.addEventListener('resize', setBoxStyle(StyleCalculation()));
-   }, [IsBusinessProfile]);
+   }, [IsBusinessProfile])
+
+   // useEffect(() => {
+   //    setBoxStyle(StyleCalculation)
+   //    window.addEventListener('resize', setBoxStyle(StyleCalculation()));
+   // }, [IsBusinessProfile]);
 
    return (
       <div className="page home">
