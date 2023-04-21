@@ -166,13 +166,14 @@
 .tooltip-text {
     background-color: #222;
     color: #fff;
-    font-size: 13px;
+    font-size: 12px;
     font-family: var(--font);
-    padding: 6px 10px;
+    padding: 6px 8px;
     border-radius: 4px;
     position: absolute;
     z-index: 1;
     pointer-events: none;
+    line-height: 1;
     animation: fadeIn 0.7s ease-in-out 0.5s both;
 
     @keyframes fadeIn {

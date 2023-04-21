@@ -53,6 +53,22 @@
     --telegram-color: #3390ec;
 }
 
+:root {
+    scrollbar-width: thin;
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: var(--secondary-light);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--secondary);
+    }
+}
+
 ::-moz-selection {
     color: #fff;
     background: var(--primary);

@@ -5,12 +5,11 @@
             "userID": "SurajPatil5153",
             "config": {
                 "smartIdyURL": "https://www.smartdiy.in/home?userID=SurajPatil5153",
-                "IsActiveProfileBusiness": true,
                 "language": "en",
+                "IsBusinessProfile": true,
                 "IsPicTypeCircle": true,
                 "theme": {
                     "primaryColor": "#f15b28",
-                    "primaryDarkColor": "#d95224",
                     "titleColor": "#411f85"
                 }
             },
@@ -45,8 +44,9 @@
                 "fssai": "123456789ABCDEFG",
                 "address": "Meghmalhar CHS, Flat No. 302, Building No. L-10, 3rd Floor, Sector 10, Ghansoli, Navi Mumbai - 400 701",
                 "mapUrl": "https://goo.gl/maps/4MegsAosb3AyXCc67",
-                "upiId": "suraj.gd89@okaxis",
                 "website": "https://www.shreeshadigital.com",
+
+                "upiId": "suraj.gd89@okaxis",
                 "paymentGateway": {
                     "logo": null,
                     "url": ""
@@ -201,7 +201,7 @@
                 "telegram": null,
                 "instagram": "https://www.instagram.com/i_am_suraj.patil/",
                 "youtube": "https://www.youtube.com/channel/enter_your_id/",
-                "catalogue": "https://wa.me/c/911234567890"
+                "catalogue": "https://wa.me/c/8450959594"
             }
         }
     ]

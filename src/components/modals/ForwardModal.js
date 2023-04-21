@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+
 import { useGlobalContext } from '../../context';
 import './Modal.scss';
 function ForwardModal(props) {

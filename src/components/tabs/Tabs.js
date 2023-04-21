@@ -85,20 +85,23 @@ function Tabs({ refElement }) {
                         </span>
                     </span>
                 </NavLink>
-                <NavLink
-                    to={`payus${search}`}
-                    onClick={(e) => {
-                        handleClick(e);
-                    }}>
-                    <span>
-                        <i className="fa-light fa-wallet"></i>
+
+                {(UserData.business.upiId || UserData.business.paymentGateway || UserData.business.bankAccount) &&
+                    <NavLink
+                        to={`payus${search}`}
+                        onClick={(e) => {
+                            handleClick(e);
+                        }}>
                         <span>
-                            <label className="en">Pay Us</label>
-                            <label className="mr">व्यवहार</label>
-                            <label className="hn">व्यवहार</label>
+                            <i className="fa-light fa-wallet"></i>
+                            <span>
+                                <label className="en">Pay Us</label>
+                                <label className="mr">व्यवहार</label>
+                                <label className="hn">व्यवहार</label>
+                            </span>
                         </span>
-                    </span>
-                </NavLink>
+                    </NavLink>
+                }
                 <div
                     className="tabs-floor"
                     ref={TabFloor}
@@ -108,5 +111,4 @@ function Tabs({ refElement }) {
         </>
     );
 }
-
 export default Tabs;

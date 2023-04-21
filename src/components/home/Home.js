@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import moment from 'moment/moment';
 import vCardsJS from 'vcards-js';
 import { saveAs } from 'file-saver';
@@ -8,38 +8,30 @@ import BusinessLogoDefault from '../../assets/images/business-logo-default.jpg';
 
 import './Home.scss';
 
-
 function Home({ modal, refElement }) {
-   const { UserData } = useGlobalContext();
+
+   const tabs = refElement;
+   const profile = useRef("");
+   const social = useRef("");
    let setModalOpen = modal;
-   let { profile, social, tabs } = refElement;
-   const [Profile, setProfile] = useState({ business: false, individual: true });
-   const [EstObject, setEstObject] = useState();
-   const [HomeActionStyle, setHomeActionStyle] = useState();
-   const HomeActionsCalc = () => {
-      let profileHT = profile.current.offsetHeight;
-      let socialHT = social.current.offsetHeight;
-      let tabsHT = tabs.current.offsetHeight;
-      if (socialHT == undefined) { socialHT = 0; }
-      return { minHeight: `calc(100vh - ${profileHT + tabsHT + socialHT}px)` }
-   }
-   const ServiceYrCalc = () => {
-      let EstDate = new Date(UserData.business.estDate);
-      let Now = moment(new Date());
-      let EstYear = moment(EstDate).format('yyyy');
-      let RemYears = Now.diff(EstDate, 'years');
-      let RemMonths = Now.diff(EstDate, 'months') % 12;
-      return { EstYear, RemYears, RemMonths }
-   }
-   const handleClick = (e) => {
-      e.preventDefault();
-      setHomeActionStyle(HomeActionsCalc)
-   }
-   useEffect(() => {
-      setHomeActionStyle(HomeActionsCalc);
-      setEstObject(ServiceYrCalc);
-   }, [Profile])
+   const { UserData } = useGlobalContext();
+   const [IsBusinessProfile, setIsBusinessProfile] = useState(UserData.config.IsBusinessProfile);
+   const [BoxStyle, setBoxStyle] = useState({});
+
+
+
    const BusinessProfile = () => {
+
+      const ServiceYrCalc = () => {
+         let EstDate = new Date(UserData.business.estDate);
+         let Now = moment(new Date());
+         let EstYear = moment(EstDate).format('yyyy');
+         let RemYears = Now.diff(EstDate, 'years');
+         let RemMonths = Now.diff(EstDate, 'months') % 12;
+         return { EstYear, RemYears, RemMonths }
+      }
+      const { EstYear, RemYears, RemMonths } = ServiceYrCalc();
+
 
       return (
          <div id="business" className="profile-item">
@@ -55,13 +47,13 @@ function Home({ modal, refElement }) {
                <label className="en">Established in</label>
                <label className="mr">स्थापना</label>
                <label className="hn">स्थापना</label>
-               &nbsp;<span id="estYr">{EstObject.EstYear}</span>&nbsp;&nbsp;
-               <span className="year-month">(<span id="passedYears">{EstObject.RemYears}</span>&nbsp;
+               &nbsp;<span id="estYr">{EstYear}</span>&nbsp;&nbsp;
+               <span className="year-month">(<span id="passedYears">{RemYears}</span>&nbsp;
                   <label className="en">years</label>
                   <label className="mr">वर्षे</label>
                   <label className="hn">वर्षे</label>
                   &nbsp;
-                  <span id="passedMonths">{EstObject.RemMonths}</span>&nbsp;
+                  <span id="passedMonths">{RemMonths}</span>&nbsp;
                   <label className="en">months</label>
                   <label className="mr">महिने</label>
                   <label className="hn">महिने</label>)
@@ -106,11 +98,29 @@ function Home({ modal, refElement }) {
       const file = new Blob([vcfFile], { type: "text/plain;charset=utf-8" });
       saveAs(file, `${UserData.individual.name}.vcf`);
    };
+
+   const StyleCalculation = () => {
+      let profile_Height = profile.current.offsetHeight;
+      let social_Height = social.current.offsetHeight;
+      let tabs_Height = tabs.current.offsetHeight;
+      if (!social.current) {
+         social_Height = 0;
+      }
+      console.log('first')
+      let minHt = `calc(100vh - ${profile_Height + tabs_Height + social_Height}px)`;
+      return { minHeight: minHt }
+   }
+
+   useEffect(() => {
+      setBoxStyle(StyleCalculation())
+      window.addEventListener('resize', setBoxStyle(StyleCalculation()));
+   }, [IsBusinessProfile]);
+
    return (
       <div className="page home">
          <div className="profile" ref={profile}>
             <div className="top">
-               <a href="#" onClick={(e) => { setProfile({ business: true }); handleClick(e) }} className={`${Profile.business ? 'active' : ''}`}>
+               <a href="#" onClick={(e) => { e.preventDefault(); setIsBusinessProfile(true); }} className={`${IsBusinessProfile ? 'active' : ''}`}>
                   <i className="fa-light fa-building"></i>
                   <span>
                      <label className="en">Business</label>
@@ -118,7 +128,7 @@ function Home({ modal, refElement }) {
                      <label className="hn">व्यवसाय</label>
                   </span>
                </a>
-               <a href="#" onClick={(e) => { setProfile({ individual: true }); handleClick(e) }} className={`${Profile.individual ? 'active' : ''}`}>
+               <a href="#" onClick={(e) => { e.preventDefault(); setIsBusinessProfile(false) }} className={`${IsBusinessProfile ? '' : 'active'}`}>
                   <i className="fa-light fa-user-tie"></i>
                   <span>
                      <label className="en">Individual</label>
@@ -127,8 +137,8 @@ function Home({ modal, refElement }) {
                   </span>
                </a>
             </div>
-            <div className={`middle circle`}>
-               {Profile.individual ? <IndividualProfile /> : <BusinessProfile />}
+            <div className={`middle ${UserData.config.IsPicTypeCircle ? 'circle' : 'square'}`}>
+               {IsBusinessProfile ? <BusinessProfile /> : <IndividualProfile />}
             </div>
             <div className="bottom">
                <a href="#" onClick={(e) => { e.preventDefault(); setModalOpen({ VisitModal: true }) }} className="visit-us ">
@@ -165,7 +175,7 @@ function Home({ modal, refElement }) {
                </a>
             </div>
          </div>
-         <div className="home-actions" style={HomeActionStyle}>
+         <div className="home-actions" style={BoxStyle}>
             <a href="#" onClick={(e) => { e.preventDefault(); setModalOpen({ CallModal: true }) }} className="">
                <span>
                   <i className="fa-light fa-phone"></i>
@@ -227,7 +237,8 @@ function Home({ modal, refElement }) {
                </span>
             </a>
          </div>
-         {UserData.social &&
+         {
+            UserData.social &&
             <div className="social" ref={social}>
                {UserData.social.facebook &&
                   <a href={UserData.social.facebook} className="facebook" target="_blank">
@@ -273,7 +284,8 @@ function Home({ modal, refElement }) {
                }
             </div>
          }
-      </div >
+
+      </div>
    )
 }
 export default Home;

@@ -1,6 +1,6 @@
 import { useGlobalContext } from '../../context';
 import { useState } from "react";
-import GalleryModal from "../../layout/modals/GalleryModal";
+import GalleryModal from "../../components/modals/GalleryModal";
 import './Gallery.scss';
 import noImageIcon from '../../assets/images/no-image.png';
 import noVideoIcon from '../../assets/images/no-video.png';

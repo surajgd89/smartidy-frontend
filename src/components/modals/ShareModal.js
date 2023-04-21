@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+
 import { WhatsappShareButton, TelegramShareButton, TwitterShareButton, EmailShareButton, FacebookShareButton, LinkedinShareButton, } from "react-share";
 import { useGlobalContext } from '../../context';
 import './Modal.scss';
