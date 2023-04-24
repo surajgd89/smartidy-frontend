@@ -4,6 +4,16 @@ import './Modal.scss';
 function UpiPaymentModal(props) {
    let setModalOpen = props.modal;
    const { UserData } = useGlobalContext();
+
+   const handleChange = (e) => {
+      console.log(e.target.value)
+   }
+
+   const handleSubmit = () => {
+
+   }
+
+
    return (
       <div className="modal-backdrop">
          <div className="modal">
@@ -18,17 +28,17 @@ function UpiPaymentModal(props) {
             </div>
             <div className="modal-body">
                <div className="pay-form">
-                  <form id="payForm">
+                  <form>
                      <div className="control-group">
-                        <input type="number" id="upiAmt" name="upiAmt" placeholder="Enter Amount" maxLength="5"
+                        <input type="text" name="amount" onChange={handleChange} onWheel={(e) => e.target.blur()} placeholder="Enter Amount" maxLength="5"
                            required />
                      </div>
                      <div className="control-group">
-                        <input type="text" id="payDesc" name="payDesc" placeholder="Enter Description" maxLength="80"
+                        <input type="text" name="description" onChange={handleChange} placeholder="Enter Description" maxLength="80"
                            required />
                      </div>
                      <div className="action-sec">
-                        <a href="#" id="paylink" className="act-btn ">
+                        <a href="#" className="act-btn" onSubmit={handleSubmit}>
                            <label className="en">Pay</label>
                            <label className="mr">देय द्या</label>
                            <label className="hn">भुगतान करें</label>

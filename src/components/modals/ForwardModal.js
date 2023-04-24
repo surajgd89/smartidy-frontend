@@ -1,9 +1,53 @@
 
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../context';
 import './Modal.scss';
 function ForwardModal(props) {
    let setModalOpen = props.modal;
    const { UserData } = useGlobalContext();
+
+
+   const [input, setInput] = useState();
+   const [isValid, setisValid] = useState(false);
+   const [error, setError] = useState('');
+
+   const handleChange = (e) => {
+      setInput(e.target.value)
+   }
+
+   const handleSubmit = (e) => {
+      e.preventDefault();
+      if (input === undefined) {
+         setisValid(false)
+         setError("This field is required.");
+      }
+      if (isValid) {
+         window.open("https://wa.me/91" + input + "/?text=" + UserData.config.smartIdyURL, "_blank");
+      }
+   };
+
+   const FormValidate = () => {
+
+      if (input != undefined) {
+         var pattern = new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i);
+         if (!pattern.test(input)) {
+            setisValid(false)
+            setError("Please enter number only");
+         } else if (input.length != 10) {
+            setisValid(false)
+            setError("Please enter 10 digit mobile number.");
+         } else {
+            setisValid(true)
+            setError("");
+         }
+      }
+      return isValid;
+   }
+
+   useEffect(() => {
+      FormValidate();
+   }, [input])
+
    return (
       <div className="modal-backdrop">
          <div className="modal">
@@ -24,13 +68,14 @@ function ForwardModal(props) {
                   </div>
                </div>
                <div className="share-form">
-                  <form id="shareForm">
+                  <form >
                      <div className="control-group">
-                        <input type="number" id="WhatsAppVal" name="WhatsAppVal" placeholder="Enter WhatsApp Number"
+                        <input type="text" name="mobile" value={input} onChange={handleChange} placeholder="Enter Mobile Number"
                            required />
+                        {isValid ? '' : <label className='error'>{error}</label>}
                      </div>
                      <div className="action-sec">
-                        <a href="#" id="WhatsAppBtn" className="act-btn">
+                        <a href="#" className="act-btn" onClick={handleSubmit}>
                            <label className="en">Share on WhatsApp</label>
                            <label className="mr">WhatsApp वर पाठवा</label>
                            <label className="hn">WhatsApp पर भेजें</label>

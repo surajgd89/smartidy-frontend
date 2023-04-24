@@ -1,12 +1,13 @@
 
 import { WhatsappShareButton, TelegramShareButton, TwitterShareButton, EmailShareButton, FacebookShareButton, LinkedinShareButton, } from "react-share";
 import { useGlobalContext } from '../../context';
+import QRCode from "react-qr-code";
 import './Modal.scss';
 function ShareModal(props) {
    let setModalOpen = props.modal;
    const { UserData } = useGlobalContext();
    const shareData = {
-      url: window.location.href,
+      url: UserData.config.smartIdyURL,
       title: null,
       quote: null,
       summary: null,
@@ -28,6 +29,11 @@ function ShareModal(props) {
                </div>
             </div>
             <div className="modal-body">
+               <div className="qr-sec">
+                  <div className="qr-frame">
+                     <QRCode value={shareData.url} size={160} className="qrcode" fgColor={`${UserData.config.theme.primaryColor}`} viewBox={`0 0 160 160`} />
+                  </div>
+               </div>
                <div className="share-via">
                   <WhatsappShareButton url={shareData.url} resetButtonStyle={false} className="share-opt whatsapp">
                      <i className="fab fa-whatsapp"></i><span>WhatsApp</span>

@@ -18,7 +18,24 @@ function Home({ modal, refElement }) {
    const [IsBusinessProfile, setIsBusinessProfile] = useState(UserData.config.IsBusinessProfile);
    const [BoxStyle, setBoxStyle] = useState({ minHeight: 'auto' });
 
+   const StyleCalculation = async () => {
+      let profile_Height = profile.current.offsetHeight;
+      let social_Height = social.current.offsetHeight;
+      let tabs_Height = tabs.current.offsetHeight;
+      if (!social.current) {
+         social_Height = 0;
+      }
+      let minHt = `calc(100vh - ${profile_Height + tabs_Height + social_Height}px)`;
+      return setBoxStyle({ minHeight: minHt })
+   }
 
+   useEffect(() => {
+      setTimeout(() => { StyleCalculation() }, 100)
+      function handleResize() {
+         setTimeout(() => { StyleCalculation() }, 100)
+      }
+      window.addEventListener('resize', handleResize)
+   }, [IsBusinessProfile]);
 
    const BusinessProfile = () => {
 
@@ -99,28 +116,6 @@ function Home({ modal, refElement }) {
       saveAs(file, `${UserData.individual.name}.vcf`);
    };
 
-   const StyleCalculation = () => {
-      let profile_Height = profile.current.offsetHeight;
-      let social_Height = social.current.offsetHeight;
-      let tabs_Height = tabs.current.offsetHeight;
-      if (!social.current) {
-         social_Height = 0;
-      }
-      console.log('first')
-      let minHt = `calc(100vh - ${profile_Height + tabs_Height + social_Height}px)`;
-      return { minHeight: minHt }
-   }
-
-   useLayoutEffect(() => {
-      console.log(BoxStyle)
-      setBoxStyle(StyleCalculation())
-   }, [IsBusinessProfile])
-
-   // useEffect(() => {
-   //    setBoxStyle(StyleCalculation)
-   //    window.addEventListener('resize', setBoxStyle(StyleCalculation()));
-   // }, [IsBusinessProfile]);
-
    return (
       <div className="page home">
          <div className="profile" ref={profile}>
@@ -170,7 +165,7 @@ function Home({ modal, refElement }) {
                      <label className="hn">शेअर</label>
                   </div>
                </a>
-               <a href="#" onClick={(e) => { e.preventDefault(); }} className="install-app ">
+               <a href="#" onClick={(e) => { e.preventDefault(); }} className="install-app " >
                   <div className="ico"><i className="fa-light fa-arrow-to-bottom"></i></div>
                   <div className="name">
                      <label className="en">Install</label>
@@ -242,8 +237,7 @@ function Home({ modal, refElement }) {
                </span>
             </a>
          </div>
-         {
-            UserData.social &&
+         {UserData.social &&
             <div className="social" ref={social}>
                {UserData.social.facebook &&
                   <a href={UserData.social.facebook} className="facebook" target="_blank">

@@ -19,6 +19,7 @@
     display: flex;
     align-items: center;
     z-index: 3;
+    padding: 0 12px;
     animation: fadeIn 0.3s ease-in-out 0.2s both;
 
     @keyframes fadeIn {
@@ -273,6 +274,37 @@
         }
     }
 
+    .qr-sec {
+        display: flex;
+        margin-bottom: 20px;
+        margin-top: 40px;
+
+        .qr-frame {
+            position: relative;
+            margin: auto;
+            .qrcode {
+                border: 2px solid var(--primary);
+                padding: 6px;
+                border-radius: var(--radius);
+            }
+            &::after {
+                content: 'SCAN ME';
+                position: absolute;
+                top: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: var(--primary);
+                color: #fff;
+                font-family: var(--font);
+                border-radius: 3px 3px 0 0;
+                padding: 5px 10px;
+                line-height: 1;
+
+                font-size: 12px;
+            }
+        }
+    }
+
     .share-via {
         display: grid;
         gap: 10px;
@@ -360,7 +392,6 @@
                 width: 100%;
                 font-size: 16px;
                 font-weight: var(--fw-medium);
-                appearance: none;
 
                 @include mobile {
                     border: 1px solid var(--border);

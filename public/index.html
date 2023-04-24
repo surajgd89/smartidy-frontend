@@ -31,37 +31,10 @@
         }).catch((err) => {
           console.log('Error in service worker registration.')
         })
-
-
-
       })
     }
 
-    // setTimeout(() => {
-    //   let deferredPrompt;
-    //   let InstallAppBtn = document.querySelector('.install-app');
-    //   console.log(InstallAppBtn)
-    //   InstallAppBtn.style.display = "none";
-    //   window.addEventListener('beforeinstallprompt', (e) => {
-    //     e.preventDefault();
-    //     deferredPrompt = e;
-    //     InstallAppBtn.style.display = "inline-block";
-    //   });
-    //   InstallAppBtn.addEventListener('click', function (e) {
-    //     InstallAppBtn.style.display = "none";
-    //     deferredPrompt.prompt();
-    //     deferredPrompt.userChoice
-    //       .then((choiceResult) => {
-    //         if (choiceResult.outcome === 'accepted') {
-    //           console.log('User accepted the A2HS prompt');
-    //         } else {
-    //           console.log('User dismissed the A2HS prompt');
-    //         }
-    //         deferredPrompt = null;
-    //       });
-    //   });
 
-    // }, 5000)
 
   </script>
 </body>
