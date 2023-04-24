@@ -248,6 +248,7 @@
             @include mobile {
                 margin-top: 15px;
             }
+
             .act-btn {
                 display: inline-flex;
                 text-align: center;
@@ -382,7 +383,8 @@
                 margin-bottom: 15px;
             }
 
-            input {
+            input,
+            textarea {
                 text-decoration: none;
                 outline: 0;
                 border: 1px solid var(--border);

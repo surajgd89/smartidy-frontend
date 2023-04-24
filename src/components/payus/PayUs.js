@@ -6,8 +6,8 @@ import PayTmLogo from "../../assets/images/paytm.png";
 import BhimLogo from "../../assets/images/bhim.png";
 import PGLogoDefault from '../../assets/images/pg-logo-default.jpg'
 
-function PayUs({ modal, handleCopyClipboard }) {
-   const setModalOpen = modal;
+function PayUs({ setModalOpen, handleCopyClipboard }) {
+
    const { UserData } = useGlobalContext();
    const accountDetails = () => {
       const name = UserData.business.bankAccount.name;

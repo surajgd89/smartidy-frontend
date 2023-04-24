@@ -82,23 +82,23 @@ function App() {
         <div className="inner-body">
           <BrowserRouter>
             <Routes>
-              <Route path={`/`} element={<Tabs refElement={{ tabs }} />}>
-                <Route index path={`home`} element={<Home modal={setModalOpen} refElement={tabs} />} />
-                <Route path={`about`} element={<About modal={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
-                <Route path={`gallery`} element={<Gallery modal={setModalOpen} />} />
-                <Route path={`payus`} element={<PayUs modal={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
+              <Route path={`/`} element={<Tabs tabs={tabs} />}>
+                <Route index path={`home`} element={<Home setModalOpen={setModalOpen} tabs={tabs} />} />
+                <Route path={`about`} element={<About setModalOpen={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
+                <Route path={`gallery`} element={<Gallery setModalOpen={setModalOpen} />} />
+                <Route path={`payus`} element={<PayUs setModalOpen={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
               </Route>
             </Routes>
           </BrowserRouter>
         </div>
-        {modalOpen.VisitModal && <VisitModal modal={setModalOpen} />}
-        {modalOpen.ForwardModal && <ForwardModal modal={setModalOpen} />}
-        {modalOpen.ShareModal && <ShareModal modal={setModalOpen} />}
-        {modalOpen.CallModal && <CallModal modal={setModalOpen} />}
-        {modalOpen.EmailModal && <EmailModal modal={setModalOpen} />}
-        {modalOpen.ChatModal && <ChatModal modal={setModalOpen} />}
-        {modalOpen.SmsModal && <SmsModal modal={setModalOpen} />}
-        {modalOpen.UpiPaymentModal && <UpiPaymentModal modal={setModalOpen} />}
+        {modalOpen.VisitModal && <VisitModal setModalOpen={setModalOpen} />}
+        {modalOpen.ForwardModal && <ForwardModal setModalOpen={setModalOpen} />}
+        {modalOpen.ShareModal && <ShareModal setModalOpen={setModalOpen} />}
+        {modalOpen.CallModal && <CallModal setModalOpen={setModalOpen} />}
+        {modalOpen.EmailModal && <EmailModal setModalOpen={setModalOpen} />}
+        {modalOpen.ChatModal && <ChatModal setModalOpen={setModalOpen} />}
+        {modalOpen.SmsModal && <SmsModal setModalOpen={setModalOpen} />}
+        {modalOpen.UpiPaymentModal && <UpiPaymentModal setModalOpen={setModalOpen} />}
         {Copied && <span className="tooltip-text" ref={tooltip} style={Position}>Copied</span>}
       </div>
       }

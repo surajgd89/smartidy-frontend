@@ -8,12 +8,11 @@ import BusinessLogoDefault from '../../assets/images/business-logo-default.jpg';
 
 import './Home.scss';
 
-function Home({ modal, refElement }) {
+function Home({ setModalOpen, tabs }) {
 
-   const tabs = refElement;
    const profile = useRef("");
    const social = useRef("");
-   let setModalOpen = modal;
+
    const { UserData } = useGlobalContext();
    const [IsBusinessProfile, setIsBusinessProfile] = useState(UserData.config.IsBusinessProfile);
    const [BoxStyle, setBoxStyle] = useState({ minHeight: 'auto' });

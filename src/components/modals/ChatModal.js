@@ -2,8 +2,8 @@
 import { useGlobalContext } from '../../context';
 import './Modal.scss';
 
-function ChatModal(props) {
-   let setModalOpen = props.modal;
+function ChatModal({setModalOpen}) {
+
    const { UserData } = useGlobalContext();
    return (
       <div className="modal-backdrop">

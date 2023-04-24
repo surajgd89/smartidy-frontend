@@ -3,8 +3,8 @@ import { WhatsappShareButton, TelegramShareButton, TwitterShareButton, EmailShar
 import { useGlobalContext } from '../../context';
 import QRCode from "react-qr-code";
 import './Modal.scss';
-function ShareModal(props) {
-   let setModalOpen = props.modal;
+function ShareModal({setModalOpen}) {
+
    const { UserData } = useGlobalContext();
    const shareData = {
       url: UserData.config.smartIdyURL,

@@ -6,8 +6,8 @@ import noImageIcon from '../../assets/images/no-image.png';
 import noVideoIcon from '../../assets/images/no-video.png';
 import GalleryPhotoDefault from '../../assets/images/gallery-default.jpg'
 
-function Gallery({ modal }) {
-   const setModalOpen = modal;
+function Gallery({ setModalOpen }) {
+
    const { UserData } = useGlobalContext();;
    const gallery = UserData.business.gallery;
    const videos = UserData.business.videos;

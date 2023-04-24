@@ -3,9 +3,8 @@ import moment from 'moment/moment';
 import { useGlobalContext } from '../../context';
 import './About.scss';
 
-function About({ modal, handleCopyClipboard }) {
+function About({ setModalOpen, handleCopyClipboard }) {
    const { UserData } = useGlobalContext();
-   const setModalOpen = modal;
    const [Day, setDay] = useState('');
 
    useEffect(() => {

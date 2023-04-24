@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../context';
 import './Modal.scss';
-function ForwardModal(props) {
-   let setModalOpen = props.modal;
+function ForwardModal({setModalOpen}) {
+
    const { UserData } = useGlobalContext();
 
 
