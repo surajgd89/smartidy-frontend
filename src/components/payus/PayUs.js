@@ -68,7 +68,7 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                </div>
             }
 
-            {UserData.business.paymentGateway != null ?
+            {UserData.business.paymentGateway.url != null ?
                <div className="pg-sec">
                   <a href={UserData.business.paymentGateway.url} target="_blank" className="pg-btn ">
                      <span>

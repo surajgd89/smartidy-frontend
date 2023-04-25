@@ -69,50 +69,55 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                </div>
             </div>
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-paper-plane"></i>
-                  <div className="lbl">
-                     <label className="en">Services</label>
-                     <label className="mr">सेवा</label>
-                     <label className="hn">सेवाएँ</label>
+
+            {UserData.business.services &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-paper-plane"></i>
+                     <div className="lbl">
+                        <label className="en">Services</label>
+                        <label className="mr">सेवा</label>
+                        <label className="hn">सेवाएँ</label>
+                     </div>
                   </div>
-               </div>
-               <div className="data">
-                  <div className="val">
-                     <ul className="service-list">
-                        {UserData.business.services.map((element, index) => {
-                           return (<li key={index}>{element}</li>)
-                        })}
-                     </ul>
-                  </div>
-               </div>
-            </div>
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-file-download"></i>
-                  <div className="lbl">
-                     <label className="en">E-Files</label>
-                     <label className="mr">इ-फाईल</label>
-                     <label className="hn">इ-फाईल</label>
-                  </div>
-               </div>
-               <div className="data">
-                  <div className="val">
-                     <div className="efiles-sec">
-                        {UserData.business.efiles.map((element, index) => {
-                           return (
-                              <a href={element.src} className="e-file" key={index} download>
-                                 <span className="file-ico"><i className={`fa-light ${element.type === "pdf" && 'fa-file-pdf'} ${element.type === "doc" && 'fa-file-word'} ${element.type === "xls" && 'fa-file-excel'} ${element.type === "ppt" && 'fa-file-powerpoint'}`}></i></span>
-                                 <span className="file-name">{element.title}</span>
-                                 <span className="file-act-ico"><i className="fad fa-download"></i></span>
-                              </a>
-                           )
-                        })}
+                  <div className="data">
+                     <div className="val">
+                        <ul className="service-list">
+                           {UserData.business.services.map((element, index) => {
+                              return (<li key={index}>{element}</li>)
+                           })}
+                        </ul>
                      </div>
                   </div>
                </div>
-            </div>
+            }
+            {UserData.business.efiles &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-file-download"></i>
+                     <div className="lbl">
+                        <label className="en">E-Files</label>
+                        <label className="mr">इ-फाईल</label>
+                        <label className="hn">इ-फाईल</label>
+                     </div>
+                  </div>
+                  <div className="data">
+                     <div className="val">
+                        <div className="efiles-sec">
+                           {UserData.business.efiles.map((element, index) => {
+                              return (
+                                 <a href={element.src} className="e-file" key={index} download>
+                                    <span className="file-ico"><i className={`fa-light ${element.type === "pdf" && 'fa-file-pdf'} ${element.type === "doc" && 'fa-file-word'} ${element.type === "xls" && 'fa-file-excel'} ${element.type === "ppt" && 'fa-file-powerpoint'}`}></i></span>
+                                    <span className="file-name">{element.title}</span>
+                                    <span className="file-act-ico"><i className="fad fa-download"></i></span>
+                                 </a>
+                              )
+                           })}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            }
             <div className="data-row">
                <div className="title">
                   <i className="fa-light fa-map-marked-alt"></i>
@@ -131,45 +136,52 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                </div>
             </div>
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-file-certificate"></i>
-                  <div className="lbl">GSTIN</div>
-               </div>
-               <div className="data">
-                  <div className="val">
-                     <span>{UserData.business.gstin}</span>
-                     <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.gstin) }}>
+            {UserData.business.gstin &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-file-certificate"></i>
+                     <div className="lbl">GSTIN</div>
+                  </div>
+                  <div className="data">
+                     <div className="val">
+                        <span>{UserData.business.gstin}</span>
+                        <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.gstin) }}>
 
-                     </i>
+                        </i>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-file-certificate"></i>
-                  <div className="lbl">MSME</div>
-               </div>
-               <div className="data">
-                  <div className="val"><span>{UserData.business.msme}</span>
-                     <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.msme) }}>
+            }
+            {UserData.business.msme &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-file-certificate"></i>
+                     <div className="lbl">MSME</div>
+                  </div>
+                  <div className="data">
+                     <div className="val"><span>{UserData.business.msme}</span>
+                        <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.msme) }}>
 
-                     </i>
+                        </i>
+                     </div>
                   </div>
                </div>
-            </div>
+            }
 
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-file-certificate"></i>
-                  <div className="lbl">FSSAI</div>
-               </div>
-               <div className="data">
-                  <div className="val"><span>{UserData.business.fssai}</span> <i
-                     className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.fssai) }}></i>
+            {UserData.business.fssai &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-file-certificate"></i>
+                     <div className="lbl">FSSAI</div>
+                  </div>
+                  <div className="data">
+                     <div className="val"><span>{UserData.business.fssai}</span> <i
+                        className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.fssai) }}></i>
+                     </div>
                   </div>
                </div>
-            </div>
+            }
+
             <div className="data-row">
                <div className="title">
                   <i className="fa-light fa-envelope"></i>
@@ -242,31 +254,34 @@ function About({ setModalOpen, handleCopyClipboard }) {
                      <label className="hn">व्यवसाय का समय</label>
                   </div>
                </div>
-               <div className="data">
-                  <div className="val">
-                     <ul className="buss-hrs-sec">
-                        {UserData.business.workingDayHrs.map((element, index) => {
-                           index = index + 1;
-                           return (
-                              <li className={index == Day ? 'active' : ''} key={index}>
-                                 <div className="day">
-                                    <label>{element.day}</label>
-                                 </div>
-                                 {element.closed ?
-                                    <div className="time">
-                                       <span>Closed</span>
-                                    </div> :
-                                    <div className="time">
-                                       <span>{element.openAt}</span>
-                                       <span>{element.closesAt}</span>
+
+               {UserData.business.workingDayHrs &&
+                  <div className="data">
+                     <div className="val">
+                        <ul className="buss-hrs-sec">
+                           {UserData.business.workingDayHrs.map((element, index) => {
+                              index = index + 1;
+                              return (
+                                 <li className={index == Day ? 'active' : ''} key={index}>
+                                    <div className="day">
+                                       <label>{element.day}</label>
                                     </div>
-                                 }
-                              </li>
-                           )
-                        })}
-                     </ul>
+                                    {element.closed ?
+                                       <div className="time">
+                                          <span>Closed</span>
+                                       </div> :
+                                       <div className="time">
+                                          <span>{element.openAt}</span>
+                                          <span>{element.closesAt}</span>
+                                       </div>
+                                    }
+                                 </li>
+                              )
+                           })}
+                        </ul>
+                     </div>
                   </div>
-               </div>
+               }
             </div>
          </div>
       </div>

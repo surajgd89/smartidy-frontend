@@ -16,12 +16,13 @@ const AppProvider = ({ children }) => {
                 setUserData(response.data[0]);
             }, 1000);
         } catch (error) {
-            setError(error.message);
+            setTimeout(() => {
+                setError(error.message);
+            }, 1000);
         }
     };
     useEffect(() => {
         getUserData();
-        
     }, []);
     return (
         <AppContext.Provider value={{ UserData, Loading, Error }}>

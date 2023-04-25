@@ -266,6 +266,11 @@
                 outline: 0;
                 border: 0;
 
+                &[disabled] {
+                    opacity: 0.5;
+                    pointer-events: none;
+                }
+
                 @include mobile {
                     font-size: 16px;
                     min-height: 50px;
@@ -430,6 +435,11 @@
                 text-decoration: none;
                 outline: 0;
                 border: 0;
+
+                &[disabled] {
+                    opacity: 0.5;
+                    pointer-events: none;
+                }
 
                 @include mobile {
                     font-size: 16px;

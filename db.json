@@ -15,8 +15,8 @@
             },
             "individual": {
                 "name": "Suraj Patil",
-                "profilePic": null,
                 "experties": "Front-End Developer",
+                "profilePic": null,
                 "call": "+919594415153",
                 "email": "suraj.gd89@gmail.com",
                 "sms": "+919594415153",
@@ -45,12 +45,12 @@
                 "address": "Meghmalhar CHS, Flat No. 302, Building No. L-10, 3rd Floor, Sector 10, Ghansoli, Navi Mumbai - 400 701",
                 "mapUrl": "https://goo.gl/maps/4MegsAosb3AyXCc67",
                 "website": "https://www.shreeshadigital.com",
-
                 "upiId": "suraj.gd89@okaxis",
                 "paymentGateway": {
                     "logo": null,
                     "url": ""
                 },
+
                 "bankAccount": {
                     "name": "Suraj Ananda Patil",
                     "bank": "Kotak Mahindra Bank",
@@ -59,6 +59,7 @@
                     "type": "Saving",
                     "branch": "Koparkhairne, Navi Mumbai"
                 },
+
                 "about": [
                     "Shreesha Digital is the expert web services and digital marketing services providing company approaches to boost your business online presence.",
                     "Shreesha Digital is a leading professional web design and web development company in Navi Mumbai offering various services such as Web Designing, Web Development, Graphic Design, Softwares, E-commerce Websites services."
