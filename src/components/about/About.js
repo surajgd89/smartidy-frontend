@@ -266,13 +266,12 @@ function About({ setModalOpen, handleCopyClipboard }) {
                                     <div className="day">
                                        <label>{element.day}</label>
                                     </div>
-                                    {element.closed ?
-                                       <div className="time">
-                                          <span>Closed</span>
-                                       </div> :
+                                    {element.working ?
                                        <div className="time">
                                           <span>{element.openAt}</span>
                                           <span>{element.closesAt}</span>
+                                       </div> : <div className="time">
+                                          <span>Closed</span>
                                        </div>
                                     }
                                  </li>
