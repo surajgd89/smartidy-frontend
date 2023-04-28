@@ -22,7 +22,7 @@ import UpiPaymentModal from './components/modals/UpiPaymentModal';
 
 function App() {
 
-  const { UserData, Loading, Error } = useGlobalContext();
+  const { userData, loading, error } = useGlobalContext();
 
 
   let [modalOpen, setModalOpen] = useState({
@@ -37,8 +37,8 @@ function App() {
   });
 
 
-  const [Copied, setCopied] = useState(false);
-  const [Position, setPosition] = useState({ left: 'initial', top: 'initial' });
+  const [copied, setCopied] = useState(false);
+  const [position, setPosition] = useState({ left: 'initial', top: 'initial' });
 
   const tabs = useRef("");
   const tooltip = useRef("");
@@ -76,9 +76,9 @@ function App() {
 
   return (
     <>
-      {Error != null ? <h2 className="data-error">{UserData.error}</h2> : ''}
-      {Loading && <div className="loader"></div>}
-      {UserData != null && <div className="wrapper" data-lang={UserData.config.language} style={{ "--primary": UserData.config.theme.primaryColor, "--primary-dark": ColorLuminance(UserData.config.theme.primaryColor, -0.10), "--title-color": UserData.config.theme.titleColor }}>
+      {error != null ? <h2 className="data-error">{userData.error}</h2> : ''}
+      {loading && <div className="loader"></div>}
+      {userData != null && <div className="wrapper" data-lang={userData.config.language} style={{ "--primary": userData.config.theme.primaryColor, "--primary-dark": ColorLuminance(userData.config.theme.primaryColor, -0.10), "--title-color": userData.config.theme.titleColor }}>
         <div className="inner-body">
           <BrowserRouter>
             <Routes>
@@ -99,7 +99,7 @@ function App() {
         {modalOpen.ChatModal && <ChatModal setModalOpen={setModalOpen} />}
         {modalOpen.SmsModal && <SmsModal setModalOpen={setModalOpen} />}
         {modalOpen.UpiPaymentModal && <UpiPaymentModal setModalOpen={setModalOpen} />}
-        {Copied && <span className="tooltip-text" ref={tooltip} style={Position}>Copied</span>}
+        {copied && <span className="tooltip-text" ref={tooltip} style={position}>Copied</span>}
       </div>
       }
 

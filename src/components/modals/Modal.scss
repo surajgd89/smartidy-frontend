@@ -289,7 +289,7 @@
             position: relative;
             margin: auto;
             .qrcode {
-                border: 2px solid var(--primary);
+                border: 2px solid var(--secondary-light);
                 padding: 6px;
                 border-radius: var(--radius);
             }
@@ -299,7 +299,7 @@
                 top: -20px;
                 left: 50%;
                 transform: translateX(-50%);
-                background-color: var(--primary);
+                background-color: var(--secondary-light);
                 color: #fff;
                 font-family: var(--font);
                 border-radius: 3px 3px 0 0;

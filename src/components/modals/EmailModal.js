@@ -1,9 +1,9 @@
 
 import { useGlobalContext } from '../../context';
 import './Modal.scss';
-function EmailModal({setModalOpen}) {
+function EmailModal({ setModalOpen }) {
 
-   const { UserData } = useGlobalContext();
+   const { userData } = useGlobalContext();
    return (
       <div className="modal-backdrop">
          <div className="modal">
@@ -18,21 +18,21 @@ function EmailModal({setModalOpen}) {
             </div>
             <div className="modal-body">
                <div className="item-list emails">
-                  <a href={`mailto:${UserData.individual.email}`} className="item-row add-vcard ">
+                  <a href={`mailto:${userData.individual.email}`} className="item-row add-vcard ">
                      <span className="lbl">
                         <label className="en">Individual</label>
                         <label className="mr">वैयक्तिक</label>
                         <label className="hn">व्यक्तिगत</label>
                      </span>
-                     <span className="val">{UserData.individual.email}</span>
+                     <span className="val">{userData.individual.email}</span>
                   </a>
-                  <a href={`mailto:${UserData.business.email}`} className="item-row">
+                  <a href={`mailto:${userData.business.email}`} className="item-row">
                      <span className="lbl">
                         <label className="en">Business</label>
                         <label className="mr">व्यवसाय</label>
                         <label className="hn">व्यवसाय</label>
                      </span>
-                     <span className="val">{UserData.business.email}</span>
+                     <span className="val">{userData.business.email}</span>
                   </a>
                </div>
             </div>

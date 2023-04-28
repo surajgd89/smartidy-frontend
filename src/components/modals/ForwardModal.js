@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../context';
 import './Modal.scss';
 function ForwardModal({ setModalOpen }) {
-   const { UserData } = useGlobalContext();
+   const { userData } = useGlobalContext();
    const [values, setValues] = useState({ mobile: '' });
    const [errors, setErrors] = useState({});
    const [flag, setFlag] = useState(false);
@@ -19,7 +19,7 @@ function ForwardModal({ setModalOpen }) {
       setErrors(Validation(values));
       if (errors.valid) {
          console.log('done')
-         window.open("https://wa.me/91" + values.mobile + "/?text=" + UserData.config.smartIdyURL, "_blank");
+         window.open("https://wa.me/91" + values.mobile + "/?text=" + userData.config.smartIdyURL, "_blank");
       }
    }
 
@@ -46,50 +46,6 @@ function ForwardModal({ setModalOpen }) {
          setErrors(Validation(values));
       }
    }, [values])
-
-
-
-
-   // const [input, setInput] = useState();
-   // const [isValid, setisValid] = useState(false);
-   // const [error, setError] = useState('');
-
-   // const handleChange = (e) => {
-   //    setInput(e.target.value)
-   // }
-
-   // const handleSubmit = (e) => {
-   //    e.preventDefault();
-   //    if (input === undefined) {
-   //       setisValid(false)
-   //       setError("This field is required.");
-   //    }
-   //    if (isValid) {
-   //       window.open("https://wa.me/91" + input + "/?text=" + UserData.config.smartIdyURL, "_blank");
-   //    }
-   // };
-
-   // const FormValidate = () => {
-
-   //    if (input != undefined) {
-   //       var pattern = new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i);
-   //       if (!pattern.test(input)) {
-   //          setisValid(false)
-   //          setError("Please enter number only");
-   //       } else if (input.length != 10) {
-   //          setisValid(false)
-   //          setError("Please enter 10 digit mobile number.");
-   //       } else {
-   //          setisValid(true)
-   //          setError("");
-   //       }
-   //    }
-   //    return isValid;
-   // }
-
-   // useEffect(() => {
-   //    FormValidate();
-   // }, [input])
 
    return (
       <div className="modal-backdrop">

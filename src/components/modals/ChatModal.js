@@ -2,9 +2,9 @@
 import { useGlobalContext } from '../../context';
 import './Modal.scss';
 
-function ChatModal({setModalOpen}) {
+function ChatModal({ setModalOpen }) {
 
-   const { UserData } = useGlobalContext();
+   const { userData } = useGlobalContext();
    return (
       <div className="modal-backdrop">
          <div className="modal">
@@ -19,7 +19,7 @@ function ChatModal({setModalOpen}) {
             </div>
             <div className="modal-body">
                <div className="item-list">
-                  {UserData.individual.chat.map((element, index) => {
+                  {userData.individual.chat.map((element, index) => {
                      return (
                         <a href={element.title == "WhatsApp" ? `https://wa.me/${element.value}` : `https://t.me/${element.value}`} className="item-row" key={index} target="_blank">
                            <span className="lbl">
@@ -31,7 +31,7 @@ function ChatModal({setModalOpen}) {
                         </a>
                      )
                   })}
-                  {UserData.business.chat.map((element, index) => {
+                  {userData.business.chat.map((element, index) => {
                      return (
                         <a href={element.title == "WhatsApp" ? `https://wa.me/${element.value}` : `https://t.me/${element.value}`} className="item-row" key={index} target="_blank">
                            <span className="lbl">

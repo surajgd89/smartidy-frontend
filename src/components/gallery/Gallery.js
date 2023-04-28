@@ -8,9 +8,9 @@ import GalleryPhotoDefault from '../../assets/images/gallery-default.jpg'
 
 function Gallery({ setModalOpen }) {
 
-   const { UserData } = useGlobalContext();;
-   const gallery = UserData.business.gallery;
-   const videos = UserData.business.videos;
+   const { userData } = useGlobalContext();;
+   const gallery = userData.business.gallery;
+   const videos = userData.business.videos;
    const [clickedImg, setClickedImg] = useState(null);
    const [currentIndex, setCurrentIndex] = useState(null);
 

@@ -3,11 +3,11 @@ import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { useGlobalContext } from '../../context';
 import './Tabs.scss';
 function Tabs({ tabs }) {
-    const { UserData } = useGlobalContext();
+    const { userData } = useGlobalContext();
     const location = useLocation();
-    const TabFloor = useRef();
+    const tabFloor = useRef();
     const { pathname, search } = location;
-    const [Dimensions, setDimensions] = useState({
+    const [dimensions, setDimensions] = useState({
         width: 0,
         left: 0,
     });
@@ -85,7 +85,7 @@ function Tabs({ tabs }) {
                     </span>
                 </NavLink>
 
-                {(UserData.business.upiId || UserData.business.paymentGateway || UserData.business.bankAccount) &&
+                {(userData.business.upiId || userData.business.paymentGateway || userData.business.bankAccount) &&
                     <NavLink
                         to={`payus${search}`}
                         onClick={(e) => {
@@ -103,8 +103,8 @@ function Tabs({ tabs }) {
                 }
                 <div
                     className="tabs-floor"
-                    ref={TabFloor}
-                    style={Dimensions}
+                    ref={tabFloor}
+                    style={dimensions}
                 ></div>
             </div>
         </>

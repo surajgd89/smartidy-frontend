@@ -8,14 +8,14 @@ import PGLogoDefault from '../../assets/images/pg-logo-default.jpg'
 
 function PayUs({ setModalOpen, handleCopyClipboard }) {
 
-   const { UserData } = useGlobalContext();
+   const { userData } = useGlobalContext();
    const accountDetails = () => {
-      const name = UserData.business.bankAccount.name;
-      const bank = UserData.business.bankAccount.bank;
-      const number = UserData.business.bankAccount.number;
-      const ifsc = UserData.business.bankAccount.ifsc;
-      const type = UserData.business.bankAccount.type;
-      const branch = UserData.business.bankAccount.branch;
+      const name = userData.business.bankAccount.name;
+      const bank = userData.business.bankAccount.bank;
+      const number = userData.business.bankAccount.number;
+      const ifsc = userData.business.bankAccount.ifsc;
+      const type = userData.business.bankAccount.type;
+      const branch = userData.business.bankAccount.branch;
       return `Name:${name},\nBank Name: ${bank},\nAccount No : ${number},\nIFSC Code: ${ifsc},\nAccount Type : ${type},\<n></n>Branch : ${branch}`
    }
    return (
@@ -34,7 +34,7 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
          </div>
          <div className="content">
 
-            {UserData.business.upiId != null ?
+            {userData.business.upiId != null ?
                <div className="upi-sec">
                   <a onClick={() => { setModalOpen({ 'UpiPaymentModal': true }) }} className="upi-btn ">
                      <span>
@@ -58,8 +58,8 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                      </div>
                   </a>
                   <div className="upi-id">
-                     <span >{UserData.business.upiId}</span>
-                     <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.upiId) }}></i>
+                     <span >{userData.business.upiId}</span>
+                     <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.upiId) }}></i>
                   </div>
                </div> :
                <div className="not-configured">
@@ -68,9 +68,9 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                </div>
             }
 
-            {UserData.business.paymentGateway.url != null ?
+            {userData.business.paymentGateway.url != null ?
                <div className="pg-sec">
-                  <a href={UserData.business.paymentGateway.url} target="_blank" className="pg-btn ">
+                  <a href={userData.business.paymentGateway.url} target="_blank" className="pg-btn ">
                      <span>
                         <label className="en">Make Payment</label>
                         <label className="mr">व्यवहार करा</label>
@@ -82,7 +82,7 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                         <label className="hn"> UPI और Net Banking के व्यवहार के लिए </label>
                      </span>
                      <div className="pg-logos">
-                        <img src={UserData.business.paymentGateway.logo != null ? UserData.business.paymentGateway.logo : PGLogoDefault} />
+                        <img src={userData.business.paymentGateway.logo != null ? userData.business.paymentGateway.logo : PGLogoDefault} />
                      </div>
                   </a>
                </div> :
@@ -92,7 +92,7 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                </div>
             }
 
-            {UserData.business.bankAccount != null ?
+            {userData.business.bankAccount != null ?
                <div className="account-sec">
                   <div className="account-data">
                      <i className="fa-light fa-clone copy-to-clipboard copy" onClick={(e) => { handleCopyClipboard(e, accountDetails()) }}></i>
@@ -102,7 +102,7 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                            <label className="mr">नाव</label>
                            <label className="hn">नाम</label>
                         </div>
-                        <div className="val">{UserData.business.bankAccount.name}</div>
+                        <div className="val">{userData.business.bankAccount.name}</div>
                      </div>
                      <div className="acc-row">
                         <div className="lbl">
@@ -110,7 +110,7 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                            <label className="mr">बँकेचे नाव</label>
                            <label className="hn">बैंक का नाम</label>
                         </div>
-                        <div className="val">{UserData.business.bankAccount.bank}</div>
+                        <div className="val">{userData.business.bankAccount.bank}</div>
                      </div>
                      <div className="acc-row">
                         <div className="lbl">
@@ -118,7 +118,7 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                            <label className="mr">खाते क्रमांक</label>
                            <label className="hn">खाता क्रमांक</label>
                         </div>
-                        <div className="val"><span >{UserData.business.bankAccount.number}</span><i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.bankAccount.number) }}></i>
+                        <div className="val"><span >{userData.business.bankAccount.number}</span><i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.bankAccount.number) }}></i>
                         </div>
                      </div>
                      <div className="acc-row">
@@ -127,8 +127,8 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                            <label className="mr">IFSC कोड</label>
                            <label className="hn">IFSC कोड</label>
                         </div>
-                        <div className="val"><span id="ifscNo">{UserData.business.bankAccount.ifsc}</span>
-                           <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.bankAccount.ifsc) }}></i>
+                        <div className="val"><span id="ifscNo">{userData.business.bankAccount.ifsc}</span>
+                           <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.bankAccount.ifsc) }}></i>
                         </div>
                      </div>
                      <div className="acc-row">
@@ -137,7 +137,7 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                            <label className="mr">खाते प्रकार</label>
                            <label className="hn">खाते का प्रकार</label>
                         </div>
-                        <div className="val">{UserData.business.bankAccount.type}</div>
+                        <div className="val">{userData.business.bankAccount.type}</div>
                      </div>
                      <div className="acc-row">
                         <div className="lbl">
@@ -145,7 +145,7 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
                            <label className="mr">शाखा</label>
                            <label className="hn">शाखा</label>
                         </div>
-                        <div className="val">{UserData.business.bankAccount.branch}</div>
+                        <div className="val">{userData.business.bankAccount.branch}</div>
                      </div>
                   </div>
                </div>

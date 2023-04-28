@@ -4,8 +4,8 @@ import { useGlobalContext } from '../../context';
 import './Modal.scss';
 function UpiPaymentModal({ setModalOpen }) {
 
-   const { UserData } = useGlobalContext();
-   const upi_address = UserData.business.upiId;
+   const { userData } = useGlobalContext();
+   const upiAddress = userData.business.upiId;
 
    const [values, setValues] = useState({ amount: '0', description: '' });
    const [errors, setErrors] = useState({});
@@ -21,8 +21,7 @@ function UpiPaymentModal({ setModalOpen }) {
       e.preventDefault();
       setErrors(Validation(values));
       if (errors.valid) {
-         console.log('done')
-         const paymentString = "tez://upi/pay?pa=" + upi_address + "&tn=" + values.description + "&am=" + values.amount + "&cu=INR";
+         const paymentString = "tez://upi/pay?pa=" + upiAddress + "&tn=" + values.description + "&am=" + values.amount + "&cu=INR";
          window.open(encodeURI(paymentString), "_blank");
       }
    }

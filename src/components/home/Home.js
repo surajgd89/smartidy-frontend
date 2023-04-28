@@ -13,18 +13,18 @@ function Home({ setModalOpen, tabs }) {
    const profile = useRef("");
    const social = useRef("");
 
-   const { UserData } = useGlobalContext();
-   const [IsBusinessProfile, setIsBusinessProfile] = useState(UserData.config.IsBusinessProfile);
-   const [BoxStyle, setBoxStyle] = useState({ minHeight: 'auto' });
+   const { userData } = useGlobalContext();
+   const [isBusinessProfile, setIsBusinessProfile] = useState(userData.config.IsBusinessProfile);
+   const [boxStyle, setBoxStyle] = useState({ minHeight: 'auto' });
 
    const StyleCalculation = async () => {
-      let profile_Height = profile.current.offsetHeight;
-      let social_Height = social.current.offsetHeight;
-      let tabs_Height = tabs.current.offsetHeight;
+      let profileHeight = profile.current.offsetHeight;
+      let socialHeight = social.current.offsetHeight;
+      let tabsHeight = tabs.current.offsetHeight;
       if (!social.current) {
-         social_Height = 0;
+         socialHeight = 0;
       }
-      let minHt = `calc(100vh - ${profile_Height + tabs_Height + social_Height}px)`;
+      let minHt = `calc(100vh - ${profileHeight + tabsHeight + socialHeight}px)`;
       return setBoxStyle({ minHeight: minHt })
    }
 
@@ -34,28 +34,28 @@ function Home({ setModalOpen, tabs }) {
          setTimeout(() => { StyleCalculation() }, 100)
       }
       window.addEventListener('resize', handleResize)
-   }, [IsBusinessProfile]);
+   }, [isBusinessProfile]);
 
    const BusinessProfile = () => {
 
       const ServiceYrCalc = () => {
-         let EstDate = new Date(UserData.business.estDate);
-         let Now = moment(new Date());
-         let EstYear = moment(EstDate).format('yyyy');
-         let RemYears = Now.diff(EstDate, 'years');
-         let RemMonths = Now.diff(EstDate, 'months') % 12;
-         return { EstYear, RemYears, RemMonths }
+         let estDate = new Date(userData.business.estDate);
+         let now = moment(new Date());
+         let estYear = moment(estDate).format('yyyy');
+         let remYears = now.diff(estDate, 'years');
+         let remMonths = now.diff(estDate, 'months') % 12;
+         return { estYear, remYears, remMonths }
       }
-      const { EstYear, RemYears, RemMonths } = ServiceYrCalc();
+      const { estYear, remYears, remMonths } = ServiceYrCalc();
 
 
       return (
          <div id="business" className="profile-item">
             <a className="image" href="#" onClick={(e) => { e.preventDefault(); }}>
-               <img src={UserData.business.logo != null ? UserData.business.logo : BusinessLogoDefault} />
+               <img src={userData.business.logo != null ? userData.business.logo : BusinessLogoDefault} />
             </a>
             <div className="head" id="businessName">
-               <label className="en">{UserData.business.name}</label>
+               <label className="en">{userData.business.name}</label>
                <label className="mr">व्यवसायाचे नाव</label>
                <label className="hn">व्यवसाय का नाम</label>
             </div>
@@ -63,13 +63,13 @@ function Home({ setModalOpen, tabs }) {
                <label className="en">Established in</label>
                <label className="mr">स्थापना</label>
                <label className="hn">स्थापना</label>
-               &nbsp;<span id="estYr">{EstYear}</span>&nbsp;&nbsp;
-               <span className="year-month">(<span id="passedYears">{RemYears}</span>&nbsp;
+               &nbsp;<span id="estYr">{estYear}</span>&nbsp;&nbsp;
+               <span className="year-month">(<span id="passedYears">{remYears}</span>&nbsp;
                   <label className="en">years</label>
                   <label className="mr">वर्षे</label>
                   <label className="hn">वर्षे</label>
                   &nbsp;
-                  <span id="passedMonths">{RemMonths}</span>&nbsp;
+                  <span id="passedMonths">{remMonths}</span>&nbsp;
                   <label className="en">months</label>
                   <label className="mr">महिने</label>
                   <label className="hn">महिने</label>)
@@ -83,14 +83,14 @@ function Home({ setModalOpen, tabs }) {
       return (
          <div id="individual" className="profile-item">
             <a className="image" href="#" onClick={(e) => { e.preventDefault(); }}>
-               <img src={UserData.individual.profilePic != null ? UserData.individual.profilePic : ProfilePhotoDefault} />
+               <img src={userData.individual.profilePic != null ? userData.individual.profilePic : ProfilePhotoDefault} />
             </a>
             <div className=" head" id="individualName">
-               <label>{UserData.individual.name}</label>
+               <label>{userData.individual.name}</label>
             </div>
             <div className="subhead">
                <span id="individualExperties">
-                  <label>{UserData.individual.experties}</label>
+                  <label>{userData.individual.experties}</label>
                </span>
             </div>
          </div>
@@ -99,27 +99,27 @@ function Home({ setModalOpen, tabs }) {
    const DownloadVCard = () => {
       var vCard = vCardsJS();
       vCard.version = '3.0';
-      vCard.url = UserData.config.smartIdyURL;
-      vCard.source = UserData.config.smartIdyURL;
-      vCard.firstName = UserData.individual.name;
-      vCard.cellPhone = UserData.individual.call;
-      vCard.email = UserData.individual.email;
-      vCard.title = UserData.individual.experties;
-      vCard.photo.attachFromUrl(UserData.individual.profilePic, 'JPEG');
-      vCard.organization = UserData.business.name;
-      vCard.workPhone = UserData.business.call;
-      vCard.workEmail = UserData.business.email;
-      vCard.logo.attachFromUrl(UserData.business.logo, 'JPEG');
+      vCard.url = userData.config.smartIdyUrl;
+      vCard.source = userData.config.smartIdyUrl;
+      vCard.firstName = userData.individual.name;
+      vCard.cellPhone = userData.individual.call;
+      vCard.email = userData.individual.email;
+      vCard.title = userData.individual.experties;
+      vCard.photo.attachFromUrl(userData.individual.profilePic, 'JPEG');
+      vCard.organization = userData.business.name;
+      vCard.workPhone = userData.business.call;
+      vCard.workEmail = userData.business.email;
+      vCard.logo.attachFromUrl(userData.business.logo, 'JPEG');
       const vcfFile = vCard.getFormattedString();
       const file = new Blob([vcfFile], { type: "text/plain;charset=utf-8" });
-      saveAs(file, `${UserData.individual.name}.vcf`);
+      saveAs(file, `${userData.individual.name}.vcf`);
    };
 
    return (
       <div className="page home">
          <div className="profile" ref={profile}>
             <div className="top">
-               <a href="#" onClick={(e) => { e.preventDefault(); setIsBusinessProfile(true); }} className={`${IsBusinessProfile ? 'active' : ''}`}>
+               <a href="#" onClick={(e) => { e.preventDefault(); setIsBusinessProfile(true); }} className={`${isBusinessProfile ? 'active' : ''}`}>
                   <i className="fa-light fa-building"></i>
                   <span>
                      <label className="en">Business</label>
@@ -127,7 +127,7 @@ function Home({ setModalOpen, tabs }) {
                      <label className="hn">व्यवसाय</label>
                   </span>
                </a>
-               <a href="#" onClick={(e) => { e.preventDefault(); setIsBusinessProfile(false) }} className={`${IsBusinessProfile ? '' : 'active'}`}>
+               <a href="#" onClick={(e) => { e.preventDefault(); setIsBusinessProfile(false) }} className={`${isBusinessProfile ? '' : 'active'}`}>
                   <i className="fa-light fa-user-tie"></i>
                   <span>
                      <label className="en">Individual</label>
@@ -136,8 +136,8 @@ function Home({ setModalOpen, tabs }) {
                   </span>
                </a>
             </div>
-            <div className={`middle ${UserData.config.IsPicTypeCircle ? 'circle' : 'square'}`}>
-               {IsBusinessProfile ? <BusinessProfile /> : <IndividualProfile />}
+            <div className={`middle ${userData.config.isPicTypeCircle ? 'circle' : 'square'}`}>
+               {isBusinessProfile ? <BusinessProfile /> : <IndividualProfile />}
             </div>
             <div className="bottom">
                <a href="#" onClick={(e) => { e.preventDefault(); setModalOpen({ VisitModal: true }) }} className="visit-us ">
@@ -174,7 +174,7 @@ function Home({ setModalOpen, tabs }) {
                </a>
             </div>
          </div>
-         <div className="home-actions" style={BoxStyle}>
+         <div className="home-actions" style={boxStyle}>
             <a href="#" onClick={(e) => { e.preventDefault(); setModalOpen({ CallModal: true }) }} className="">
                <span>
                   <i className="fa-light fa-phone"></i>
@@ -225,7 +225,7 @@ function Home({ setModalOpen, tabs }) {
                   </span>
                </span>
             </a>
-            <a href={UserData.business.mapUrl} target='_blank' className="google-map ">
+            <a href={userData.business.mapUrl} target='_blank' className="google-map ">
                <span>
                   <i className="fa-light fa-map-marked-alt"></i>
                   <span>
@@ -236,46 +236,46 @@ function Home({ setModalOpen, tabs }) {
                </span>
             </a>
          </div>
-         {UserData.social &&
+         {userData.social &&
             <div className="social" ref={social}>
-               {UserData.social.facebook &&
-                  <a href={UserData.social.facebook} className="facebook" target="_blank">
+               {userData.social.facebook &&
+                  <a href={userData.social.facebook} className="facebook" target="_blank">
                      <i className="fab fa-facebook-f"></i>
                      <span>Facebook</span>
                   </a>
                }
-               {UserData.social.twitter &&
-                  <a href={UserData.social.twitter} className="twitter" target="_blank">
+               {userData.social.twitter &&
+                  <a href={userData.social.twitter} className="twitter" target="_blank">
                      <i className="fab fa-twitter"></i>
                      <span>Twitter</span>
                   </a>
                }
-               {UserData.social.linkedin &&
-                  <a href={UserData.social.linkedin} className="linkedin" target="_blank">
+               {userData.social.linkedin &&
+                  <a href={userData.social.linkedin} className="linkedin" target="_blank">
                      <i className="fab fa-linkedin-in"></i>
                      <span>Linkedin</span>
                   </a>
                }
-               {UserData.social.instagram &&
-                  <a href={UserData.social.instagram} className="instagram" target="_blank">
+               {userData.social.instagram &&
+                  <a href={userData.social.instagram} className="instagram" target="_blank">
                      <i className="fab fa-instagram"></i>
                      <span>Instagram</span>
                   </a>
                }
-               {UserData.social.youtube &&
-                  <a href={UserData.social.youtube} className="youtube" target="_blank">
+               {userData.social.youtube &&
+                  <a href={userData.social.youtube} className="youtube" target="_blank">
                      <i className="fab fa-youtube"></i>
                      <span>YouTube</span>
                   </a>
                }
-               {UserData.social.catalogue &&
-                  <a href={UserData.social.catalogue} className="whatsapp" target="_blank">
+               {userData.social.catalogue &&
+                  <a href={userData.social.catalogue} className="whatsapp" target="_blank">
                      <i className="fab fa-whatsapp"></i>
                      <span>Catalogue</span>
                   </a>
                }
-               {UserData.social.telegram &&
-                  <a href={UserData.social.telegram} className="telegram" target="_blank">
+               {userData.social.telegram &&
+                  <a href={userData.social.telegram} className="telegram" target="_blank">
                      <i className="fab fa-telegram"></i>
                      <span>Telegram</span>
                   </a>

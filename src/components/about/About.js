@@ -4,8 +4,8 @@ import { useGlobalContext } from '../../context';
 import './About.scss';
 
 function About({ setModalOpen, handleCopyClipboard }) {
-   const { UserData } = useGlobalContext();
-   const [Day, setDay] = useState('');
+   const { userData } = useGlobalContext();
+   const [day, setDay] = useState('');
 
    useEffect(() => {
       setDay(moment().isoWeekday())
@@ -36,7 +36,7 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                </div>
                <div className="data">
-                  <div className="val business-name">{UserData.business.name}</div>
+                  <div className="val business-name">{userData.business.name}</div>
                </div>
             </div>
             <div className="data-row">
@@ -49,7 +49,7 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                </div>
                <div className="data">
-                  <div className="val">{UserData.business.designation}</div>
+                  <div className="val">{userData.business.designation}</div>
                </div>
             </div>
             <div className="data-row">
@@ -63,14 +63,14 @@ function About({ setModalOpen, handleCopyClipboard }) {
                </div>
                <div className="data">
                   <div className="val">
-                     {UserData.business.about.map((element, index) => {
+                     {userData.business.about.map((element, index) => {
                         return (<p key={index}>{element}</p>)
                      })}
                   </div>
                </div>
             </div>
 
-            {UserData.business.services &&
+            {userData.business.services &&
                <div className="data-row">
                   <div className="title">
                      <i className="fa-light fa-paper-plane"></i>
@@ -83,7 +83,7 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   <div className="data">
                      <div className="val">
                         <ul className="service-list">
-                           {UserData.business.services.map((element, index) => {
+                           {userData.business.services.map((element, index) => {
                               return (<li key={index}>{element}</li>)
                            })}
                         </ul>
@@ -91,7 +91,7 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                </div>
             }
-            {UserData.business.efiles &&
+            {userData.business.efiles &&
                <div className="data-row">
                   <div className="title">
                      <i className="fa-light fa-file-download"></i>
@@ -104,7 +104,7 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   <div className="data">
                      <div className="val">
                         <div className="efiles-sec">
-                           {UserData.business.efiles.map((element, index) => {
+                           {userData.business.efiles.map((element, index) => {
                               return (
                                  <a href={element.src} className="e-file" key={index} download>
                                     <span className="file-ico"><i className={`fa-light ${element.type === "pdf" && 'fa-file-pdf'} ${element.type === "doc" && 'fa-file-word'} ${element.type === "xls" && 'fa-file-excel'} ${element.type === "ppt" && 'fa-file-powerpoint'}`}></i></span>
@@ -131,12 +131,12 @@ function About({ setModalOpen, handleCopyClipboard }) {
                </div>
                <div className="data">
                   <div className="val">
-                     <span>{UserData.business.address}</span>
-                     <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.address) }}></i>
+                     <span>{userData.business.address}</span>
+                     <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.address) }}></i>
                   </div>
                </div>
             </div>
-            {UserData.business.gstin &&
+            {userData.business.gstin &&
                <div className="data-row">
                   <div className="title">
                      <i className="fa-light fa-file-certificate"></i>
@@ -144,23 +144,23 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                   <div className="data">
                      <div className="val">
-                        <span>{UserData.business.gstin}</span>
-                        <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.gstin) }}>
+                        <span>{userData.business.gstin}</span>
+                        <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.gstin) }}>
 
                         </i>
                      </div>
                   </div>
                </div>
             }
-            {UserData.business.msme &&
+            {userData.business.msme &&
                <div className="data-row">
                   <div className="title">
                      <i className="fa-light fa-file-certificate"></i>
                      <div className="lbl">MSME</div>
                   </div>
                   <div className="data">
-                     <div className="val"><span>{UserData.business.msme}</span>
-                        <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.msme) }}>
+                     <div className="val"><span>{userData.business.msme}</span>
+                        <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.msme) }}>
 
                         </i>
                      </div>
@@ -168,15 +168,15 @@ function About({ setModalOpen, handleCopyClipboard }) {
                </div>
             }
 
-            {UserData.business.fssai &&
+            {userData.business.fssai &&
                <div className="data-row">
                   <div className="title">
                      <i className="fa-light fa-file-certificate"></i>
                      <div className="lbl">FSSAI</div>
                   </div>
                   <div className="data">
-                     <div className="val"><span>{UserData.business.fssai}</span> <i
-                        className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.fssai) }}></i>
+                     <div className="val"><span>{userData.business.fssai}</span> <i
+                        className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.fssai) }}></i>
                      </div>
                   </div>
                </div>
@@ -194,8 +194,8 @@ function About({ setModalOpen, handleCopyClipboard }) {
 
                </div>
                <div className="data">
-                  <div className="val"><a href={`mailto:${UserData.business.email}`}
-                     className="link">{UserData.business.email}</a><i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.email) }}></i>
+                  <div className="val"><a href={`mailto:${userData.business.email}`}
+                     className="link">{userData.business.email}</a><i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.email) }}></i>
                   </div>
                </div>
             </div>
@@ -211,8 +211,8 @@ function About({ setModalOpen, handleCopyClipboard }) {
                <div className="data">
 
 
-                  <div className="val"><span>{UserData.business.call}</span><i
-                     className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.call) }}
+                  <div className="val"><span>{userData.business.call}</span><i
+                     className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.call) }}
                   ></i>
                   </div>
                </div>
@@ -227,9 +227,9 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                </div>
                <div className="data">
-                  <div className="val"><a href={UserData.business.website}
-                     className="link">{UserData.business.website}</a><i
-                        className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.business.website) }}></i>
+                  <div className="val"><a href={userData.business.website}
+                     className="link">{userData.business.website}</a><i
+                        className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.website) }}></i>
                   </div>
                </div>
             </div>
@@ -240,8 +240,8 @@ function About({ setModalOpen, handleCopyClipboard }) {
                </div>
                <div className="data">
                   <div className="val">
-                     <a href={UserData.config.smartIdyURL} className="link smartidy-url">{UserData.config.smartIdyURL}</a>
-                     <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, UserData.config.smartIdyURL) }}></i>
+                     <a href={userData.config.smartIdyUrl} className="link smartidy-url">{userData.config.smartIdyUrl}</a>
+                     <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.config.smartIdyUrl) }}></i>
                   </div>
                </div>
             </div>
@@ -255,14 +255,14 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                </div>
 
-               {UserData.business.workingDayHrs &&
+               {userData.business.workingDayHrs &&
                   <div className="data">
                      <div className="val">
                         <ul className="buss-hrs-sec">
-                           {UserData.business.workingDayHrs.map((element, index) => {
+                           {userData.business.workingDayHrs.map((element, index) => {
                               index = index + 1;
                               return (
-                                 <li className={index == Day ? 'active' : ''} key={index}>
+                                 <li className={index == day ? 'active' : ''} key={index}>
                                     <div className="day">
                                        <label>{element.day}</label>
                                     </div>

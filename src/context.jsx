@@ -3,9 +3,9 @@ import axios from 'axios';
 const AppContext = createContext();
 const AppProvider = ({ children }) => {
     const userID = new URLSearchParams(window.location.search).get('userID');
-    const [UserData, setUserData] = useState();
-    const [Loading, setLoading] = useState(true);
-    const [Error, setError] = useState();
+    const [userData, setUserData] = useState();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState();
     const getUserData = async () => {
         try {
             const response = await axios.get(
@@ -25,7 +25,7 @@ const AppProvider = ({ children }) => {
         getUserData();
     }, []);
     return (
-        <AppContext.Provider value={{ UserData, Loading, Error }}>
+        <AppContext.Provider value={{ userData, loading, error }}>
             {children}
         </AppContext.Provider>
     );

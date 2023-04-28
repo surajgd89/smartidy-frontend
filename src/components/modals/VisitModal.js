@@ -2,7 +2,7 @@
 import { useGlobalContext } from '../../context';
 import './Modal.scss';
 function VisitModal({ setModalOpen }) {
-   const { UserData } = useGlobalContext();
+   const { userData } = useGlobalContext();
    return (
       <div className="modal-backdrop">
          <div className="modal">
@@ -17,7 +17,7 @@ function VisitModal({ setModalOpen }) {
             </div>
             <div className="modal-body">
                <div className="item-list">
-                  {UserData.business.links.map((element, index) => {
+                  {userData.business.links.map((element, index) => {
                      return (
                         <a href={element.url} className="item-row" key={index} target="_blank">
                            <span className="lbl">
