@@ -91,7 +91,7 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                </div>
             }
-            {userData.business.efiles &&
+            {userData.business.eFiles &&
                <div className="data-row">
                   <div className="title">
                      <i className="fa-light fa-file-download"></i>
@@ -104,7 +104,7 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   <div className="data">
                      <div className="val">
                         <div className="efiles-sec">
-                           {userData.business.efiles.map((element, index) => {
+                           {userData.business.eFiles.map((element, index) => {
                               return (
                                  <a href={element.src} className="e-file" key={index} download>
                                     <span className="file-ico"><i className={`fa-light ${element.type === "pdf" && 'fa-file-pdf'} ${element.type === "doc" && 'fa-file-word'} ${element.type === "xls" && 'fa-file-excel'} ${element.type === "ppt" && 'fa-file-powerpoint'}`}></i></span>
