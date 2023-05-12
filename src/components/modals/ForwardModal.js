@@ -1,9 +1,9 @@
 
 import { useEffect, useState } from 'react';
-import { useGlobalContext } from '../../context';
+
 import './Modal.scss';
 function ForwardModal({ setModalOpen }) {
-   const { userData } = useGlobalContext();
+
    const [values, setValues] = useState({ mobile: '' });
    const [errors, setErrors] = useState({});
    const [flag, setFlag] = useState(false);

@@ -1,8 +1,8 @@
 
-import { useGlobalContext } from '../../context';
+
 import './Modal.scss';
 function VisitModal({ setModalOpen }) {
-   const { userData } = useGlobalContext();
+
    return (
       <div className="modal-backdrop">
          <div className="modal">

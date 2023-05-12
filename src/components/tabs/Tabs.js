@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { useGlobalContext } from '../../context';
+
 import './Tabs.scss';
 function Tabs({ tabs }) {
-    const { userData } = useGlobalContext();
+
     const location = useLocation();
     const tabFloor = useRef();
     const { pathname, search } = location;

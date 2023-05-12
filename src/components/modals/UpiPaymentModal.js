@@ -1,10 +1,10 @@
 
 import { useEffect, useState } from 'react';
-import { useGlobalContext } from '../../context';
+
 import './Modal.scss';
 function UpiPaymentModal({ setModalOpen }) {
 
-   const { userData } = useGlobalContext();
+
    const upiAddress = userData.business.upiId;
 
    const [values, setValues] = useState({ amount: '0', description: '' });

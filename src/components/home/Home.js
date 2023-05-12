@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import moment from 'moment/moment';
 import vCardsJS from 'vcards-js';
 import { saveAs } from 'file-saver';
-import { useGlobalContext } from '../../context';
+
 import ProfilePhotoDefault from '../../assets/images/profile-photo-default.jpg';
 import BusinessLogoDefault from '../../assets/images/business-logo-default.jpg';
 
@@ -13,7 +13,7 @@ function Home({ setModalOpen, tabs }) {
    const profile = useRef("");
    const social = useRef("");
 
-   const { userData } = useGlobalContext();
+
    const [isBusinessProfile, setIsBusinessProfile] = useState(userData.config.IsBusinessProfile);
    const [boxStyle, setBoxStyle] = useState({ minHeight: 'auto' });
 
@@ -282,7 +282,6 @@ function Home({ setModalOpen, tabs }) {
                }
             </div>
          }
-
       </div>
    )
 }

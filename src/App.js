@@ -1,9 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import { useState, useRef, useEffect } from 'react';
-
-import { useGlobalContext } from './context';
 import './App.scss';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser } from './features/user/userSlice';
 
 import Home from './components/home/Home';
 import About from './components/about/About';
@@ -22,8 +21,19 @@ import UpiPaymentModal from './components/modals/UpiPaymentModal';
 
 function App() {
 
-  const { userData, loading, error } = useGlobalContext();
+  //Users
+  const userId = new URLSearchParams(window.location.search).get('userId');
 
+  const dispatch = useDispatch();
+
+  const data = useSelector(state => state.idyUser.data);
+  const loading = useSelector(state => state.idyUser.loading);
+  const error = useSelector(state => state.idyUser.error);
+
+  const [copied, setCopied] = useState(false);
+  const [position, setPosition] = useState({ left: 'initial', top: 'initial' });
+  const tabs = useRef("");
+  const tooltip = useRef("");
 
   let [modalOpen, setModalOpen] = useState({
     VisitModal: false,
@@ -35,14 +45,6 @@ function App() {
     SmsModal: false,
     UpiPaymentModal: false,
   });
-
-
-  const [copied, setCopied] = useState(false);
-  const [position, setPosition] = useState({ left: 'initial', top: 'initial' });
-
-  const tabs = useRef("");
-  const tooltip = useRef("");
-
 
   const handleCopyClipboard = (e, data) => {
     navigator.clipboard.writeText(data);
@@ -73,12 +75,27 @@ function App() {
     return rgb;
   }
 
+  useEffect(() => {
+    dispatch(fetchUser(userId))
+  }, []);
+
+  if (loading) {
+    return <div className="loader"></div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const { config } = { ...data };
+  let { theme, language } = { ...config };
+  let { primaryColor, titleColor } = { ...theme };
+
 
   return (
     <>
-      {error != null ? <h2 className="data-error">{userData.error}</h2> : ''}
-      {loading && <div className="loader"></div>}
-      {userData != null && <div className="wrapper" data-lang={userData.config.language} style={{ "--primary": userData.config.theme.primaryColor, "--primary-dark": ColorLuminance(userData.config.theme.primaryColor, -0.10), "--title-color": userData.config.theme.titleColor }}>
+
+      {<div className="wrapper" data-lang={language} style={{ "--primary": primaryColor, "--primary-dark": ColorLuminance(primaryColor, -0.10), "--title-color": titleColor }}>
         <div className="inner-body">
           <BrowserRouter>
             <Routes>
@@ -100,11 +117,11 @@ function App() {
         {modalOpen.SmsModal && <SmsModal setModalOpen={setModalOpen} />}
         {modalOpen.UpiPaymentModal && <UpiPaymentModal setModalOpen={setModalOpen} />}
         {copied && <span className="tooltip-text" ref={tooltip} style={position}>Copied</span>}
-      </div>
-      }
-
+      </div>}
     </>
   );
+
+
 }
 
 

@@ -1,11 +1,11 @@
 
 import { WhatsappShareButton, TelegramShareButton, TwitterShareButton, EmailShareButton, FacebookShareButton, LinkedinShareButton, } from "react-share";
-import { useGlobalContext } from '../../context';
+
 import QRCode from "react-qr-code";
 import './Modal.scss';
 function ShareModal({ setModalOpen }) {
 
-   const { userData } = useGlobalContext();
+
    const shareData = {
       url: userData.config.smartIdyUrl,
       title: null,

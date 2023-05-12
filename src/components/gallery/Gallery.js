@@ -1,4 +1,4 @@
-import { useGlobalContext } from '../../context';
+
 import { useState } from "react";
 import GalleryModal from "../../components/modals/GalleryModal";
 import './Gallery.scss';
@@ -8,7 +8,7 @@ import GalleryPhotoDefault from '../../assets/images/gallery-default.jpg'
 
 function Gallery({ setModalOpen }) {
 
-   const { userData } = useGlobalContext();;
+   ;
    const gallery = userData.business.gallery;
    const videos = userData.business.videos;
    const [clickedImg, setClickedImg] = useState(null);

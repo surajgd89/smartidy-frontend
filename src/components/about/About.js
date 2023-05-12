@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import moment from 'moment/moment';
-import { useGlobalContext } from '../../context';
+
 import './About.scss';
 
 function About({ setModalOpen, handleCopyClipboard }) {
-   const { userData } = useGlobalContext();
+
    const [day, setDay] = useState('');
 
    useEffect(() => {

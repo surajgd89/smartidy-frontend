@@ -1,4 +1,4 @@
-import { useGlobalContext } from '../../context';
+
 import './PayUs.scss';
 import GpayLogo from "../../assets/images/g-pay.png";
 import PhonePayLogo from "../../assets/images/p-pay.png";
@@ -8,7 +8,7 @@ import PGLogoDefault from '../../assets/images/pg-logo-default.jpg'
 
 function PayUs({ setModalOpen, handleCopyClipboard }) {
 
-   const { userData } = useGlobalContext();
+
    const accountDetails = () => {
       const name = userData.business.bankAccount.name;
       const bank = userData.business.bankAccount.bank;
