@@ -6,9 +6,14 @@ import { saveAs } from 'file-saver';
 import ProfilePhotoDefault from '../../assets/images/profile-photo-default.jpg';
 import BusinessLogoDefault from '../../assets/images/business-logo-default.jpg';
 
+import { useSelector } from 'react-redux';
+
 import './Home.scss';
 
 function Home({ setModalOpen, tabs }) {
+
+
+   const userData = useSelector(state => state.idyUser.data);
 
    const profile = useRef("");
    const social = useRef("");

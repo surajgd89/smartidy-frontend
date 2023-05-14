@@ -6,8 +6,11 @@ import PayTmLogo from "../../assets/images/paytm.png";
 import BhimLogo from "../../assets/images/bhim.png";
 import PGLogoDefault from '../../assets/images/pg-logo-default.jpg'
 
+import { useSelector } from 'react-redux';
+
 function PayUs({ setModalOpen, handleCopyClipboard }) {
 
+   const userData = useSelector(state => state.idyUser.data);
 
    const accountDetails = () => {
       const name = userData.business.bankAccount.name;

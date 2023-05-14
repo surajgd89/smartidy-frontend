@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import moment from 'moment/moment';
+import { useSelector } from 'react-redux';
 
 import './About.scss';
 
 function About({ setModalOpen, handleCopyClipboard }) {
+
+   const userData = useSelector(state => state.idyUser.data);
+
+
 
    const [day, setDay] = useState('');
 

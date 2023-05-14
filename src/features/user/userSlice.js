@@ -2,7 +2,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-
 const API_USER_URL = `http://localhost:3000/user`;
 
 //FETCH User
@@ -33,14 +32,12 @@ const userSlice = createSlice({
          })
          .addCase(fetchUser.fulfilled, (state, action) => {
             state.loading = false;
-            state.data = action.payload;           
-
+            state.data = action.payload;
          })
          .addCase(fetchUser.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
          })
-
    },
 });
 

@@ -18,7 +18,6 @@ import ChatModal from './components/modals/ChatModal';
 import SmsModal from './components/modals/SmsModal';
 import UpiPaymentModal from './components/modals/UpiPaymentModal';
 
-
 function App() {
 
   //Users
@@ -26,9 +25,17 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const data = useSelector(state => state.idyUser.data);
   const loading = useSelector(state => state.idyUser.loading);
   const error = useSelector(state => state.idyUser.error);
+  const userData = useSelector(state => state.idyUser.data);
+
+
+  const { config } = userData;
+  let { theme, language } = { ...config };
+  let { primaryColor, titleColor } = { ...theme };
+
+
+
 
   const [copied, setCopied] = useState(false);
   const [position, setPosition] = useState({ left: 'initial', top: 'initial' });
@@ -87,14 +94,8 @@ function App() {
     return <div>Error: {error}</div>;
   }
 
-  const { config } = { ...data };
-  let { theme, language } = { ...config };
-  let { primaryColor, titleColor } = { ...theme };
-
-
   return (
     <>
-
       {<div className="wrapper" data-lang={language} style={{ "--primary": primaryColor, "--primary-dark": ColorLuminance(primaryColor, -0.10), "--title-color": titleColor }}>
         <div className="inner-body">
           <BrowserRouter>

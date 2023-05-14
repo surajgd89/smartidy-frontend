@@ -3,7 +3,9 @@ import { WhatsappShareButton, TelegramShareButton, TwitterShareButton, EmailShar
 
 import QRCode from "react-qr-code";
 import './Modal.scss';
+import { useSelector } from "react-redux";
 function ShareModal({ setModalOpen }) {
+   const userData = useSelector(state => state.idyUser.data);
 
 
    const shareData = {

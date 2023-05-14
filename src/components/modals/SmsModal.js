@@ -1,8 +1,9 @@
 
 
+import { useSelector } from 'react-redux';
 import './Modal.scss';
 function SmsModal({ setModalOpen }) {
-
+   const userData = useSelector(state => state.idyUser.data);
 
    return (
       <div className="modal-backdrop">

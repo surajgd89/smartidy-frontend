@@ -2,7 +2,9 @@
 import { useEffect, useState } from 'react';
 
 import './Modal.scss';
+import { useSelector } from 'react-redux';
 function UpiPaymentModal({ setModalOpen }) {
+   const userData = useSelector(state => state.idyUser.data);
 
 
    const upiAddress = userData.business.upiId;

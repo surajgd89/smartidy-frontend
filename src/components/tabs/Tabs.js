@@ -1,8 +1,13 @@
 import { useRef, useState, useEffect } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-
 import './Tabs.scss';
+import { useSelector } from 'react-redux';
 function Tabs({ tabs }) {
+
+    const userData = useSelector(state => state.idyUser.data);
+    const { business } = userData;
+    let { upiId, paymentGateway, bankAccount } = { ...business };
+
 
     const location = useLocation();
     const tabFloor = useRef();
@@ -30,12 +35,15 @@ function Tabs({ tabs }) {
     };
     useEffect(() => {
         let IsActive = document.querySelector('.tabs a.active');
-        setDimensions({
-            width: IsActive.offsetWidth,
-            left: IsActive.offsetLeft,
-        });
+        setTimeout(() => {
+            setDimensions({
+                width: IsActive.offsetWidth,
+                left: IsActive.offsetLeft,
+            });
+        }, 1500)
         InnerPageLoader();
     }, []);
+
     return (
         <>
             {Innerloading ? <div className="page-loader"></div> : <Outlet />}
@@ -85,7 +93,7 @@ function Tabs({ tabs }) {
                     </span>
                 </NavLink>
 
-                {(userData.business.upiId || userData.business.paymentGateway || userData.business.bankAccount) &&
+                {(upiId || paymentGateway || bankAccount) &&
                     <NavLink
                         to={`payus${search}`}
                         onClick={(e) => {
