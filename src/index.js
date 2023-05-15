@@ -4,9 +4,13 @@ import 'normalize.css';
 import './index.scss';
 import './App.scss';
 import App from './App';
-import { store } from './app/store';
 import { Provider } from 'react-redux';
+import { store } from './app/store';
 import reportWebVitals from './reportWebVitals';
+
+
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

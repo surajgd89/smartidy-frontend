@@ -10,23 +10,23 @@ import { useSelector } from 'react-redux';
 
 import './Home.scss';
 
-function Home({ setModalOpen, tabs }) {
+function Home({ setModalOpen, tabsRef }) {
 
 
    const userData = useSelector(state => state.idyUser.data);
 
-   const profile = useRef("");
-   const social = useRef("");
+   const profileRef = useRef("");
+   const socialRef = useRef("");
 
 
    const [isBusinessProfile, setIsBusinessProfile] = useState(userData.config.IsBusinessProfile);
    const [boxStyle, setBoxStyle] = useState({ minHeight: 'auto' });
 
    const StyleCalculation = async () => {
-      let profileHeight = profile.current.offsetHeight;
-      let socialHeight = social.current.offsetHeight;
-      let tabsHeight = tabs.current.offsetHeight;
-      if (!social.current) {
+      let profileHeight = profileRef.current.offsetHeight;
+      let socialHeight = socialRef.current.offsetHeight;
+      let tabsHeight = tabsRef.current.offsetHeight;
+      if (!socialRef.current) {
          socialHeight = 0;
       }
       let minHt = `calc(100vh - ${profileHeight + tabsHeight + socialHeight}px)`;
@@ -122,7 +122,7 @@ function Home({ setModalOpen, tabs }) {
 
    return (
       <div className="page home">
-         <div className="profile" ref={profile}>
+         <div className="profile" ref={profileRef}>
             <div className="top">
                <a href="#" onClick={(e) => { e.preventDefault(); setIsBusinessProfile(true); }} className={`${isBusinessProfile ? 'active' : ''}`}>
                   <i className="fa-light fa-building"></i>
@@ -242,7 +242,7 @@ function Home({ setModalOpen, tabs }) {
             </a>
          </div>
          {userData.social &&
-            <div className="social" ref={social}>
+            <div className="social" ref={socialRef}>
                {userData.social.facebook &&
                   <a href={userData.social.facebook} className="facebook" target="_blank">
                      <i className="fab fa-facebook-f"></i>

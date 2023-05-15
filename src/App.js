@@ -20,27 +20,32 @@ import UpiPaymentModal from './components/modals/UpiPaymentModal';
 
 function App() {
 
-  //Users
+
   const userId = new URLSearchParams(window.location.search).get('userId');
-
-  const dispatch = useDispatch();
-
   const loading = useSelector(state => state.idyUser.loading);
   const error = useSelector(state => state.idyUser.error);
   const userData = useSelector(state => state.idyUser.data);
 
 
-  const { config } = userData;
-  let { theme, language } = { ...config };
-  let { primaryColor, titleColor } = { ...theme };
 
 
+
+  //Users
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchUser(userId))
+  }, []);
+
+
+  // const { config } = userData;
+  // let { theme, language } = { ...config };
+  // let { primaryColor, titleColor } = { ...theme };
 
 
   const [copied, setCopied] = useState(false);
   const [position, setPosition] = useState({ left: 'initial', top: 'initial' });
-  const tabs = useRef("");
-  const tooltip = useRef("");
+  const tabsRef = useRef("");
+  const tooltipRef = useRef("");
 
   let [modalOpen, setModalOpen] = useState({
     VisitModal: false,
@@ -57,8 +62,8 @@ function App() {
     navigator.clipboard.writeText(data);
     setCopied(true);
     setTimeout(() => {
-      let left = e.pageX - (tooltip.current.clientWidth / 2);
-      let top = e.pageY - (tooltip.current.clientHeight + 14);
+      let left = e.pageX - (tooltipRef.current.clientWidth / 2);
+      let top = e.pageY - (tooltipRef.current.clientHeight + 14);
       setPosition({ left: left, top: top });
     }, 300)
     setTimeout(() => {
@@ -82,9 +87,6 @@ function App() {
     return rgb;
   }
 
-  useEffect(() => {
-    dispatch(fetchUser(userId))
-  }, []);
 
   if (loading) {
     return <div className="loader"></div>;
@@ -94,34 +96,35 @@ function App() {
     return <div>Error: {error}</div>;
   }
 
-  return (
-    <>
-      {<div className="wrapper" data-lang={language} style={{ "--primary": primaryColor, "--primary-dark": ColorLuminance(primaryColor, -0.10), "--title-color": titleColor }}>
-        <div className="inner-body">
-          <BrowserRouter>
-            <Routes>
-              <Route path={`/`} element={<Tabs tabs={tabs} />}>
-                <Route index path={`home`} element={<Home setModalOpen={setModalOpen} tabs={tabs} />} />
-                <Route path={`about`} element={<About setModalOpen={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
-                <Route path={`gallery`} element={<Gallery setModalOpen={setModalOpen} />} />
-                <Route path={`payus`} element={<PayUs setModalOpen={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </div>
-        {modalOpen.VisitModal && <VisitModal setModalOpen={setModalOpen} />}
-        {modalOpen.ForwardModal && <ForwardModal setModalOpen={setModalOpen} />}
-        {modalOpen.ShareModal && <ShareModal setModalOpen={setModalOpen} />}
-        {modalOpen.CallModal && <CallModal setModalOpen={setModalOpen} />}
-        {modalOpen.EmailModal && <EmailModal setModalOpen={setModalOpen} />}
-        {modalOpen.ChatModal && <ChatModal setModalOpen={setModalOpen} />}
-        {modalOpen.SmsModal && <SmsModal setModalOpen={setModalOpen} />}
-        {modalOpen.UpiPaymentModal && <UpiPaymentModal setModalOpen={setModalOpen} />}
-        {copied && <span className="tooltip-text" ref={tooltip} style={position}>Copied</span>}
-      </div>}
-    </>
-  );
 
+
+  return (
+    <div className="wrapper" data-lang={userData.config.language} style={{ "--primary": userData.theme.primaryColor, "--primary-dark": ColorLuminance(userData.theme.primaryColor, -0.10), "--title-color": userData.theme.titleColor }
+    }>
+      <div className="inner-body">
+        <BrowserRouter>
+          <Routes>
+            <Route path={`/`} element={<Tabs tabsRef={tabsRef} />}>
+              <Route index path={`home`} element={<Home setModalOpen={setModalOpen} tabsRef={tabsRef} />} />
+              <Route path={`about`} element={<About setModalOpen={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
+              <Route path={`gallery`} element={<Gallery setModalOpen={setModalOpen} />} />
+              <Route path={`payus`} element={<PayUs setModalOpen={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+      {modalOpen.VisitModal && <VisitModal setModalOpen={setModalOpen} />}
+      {modalOpen.ForwardModal && <ForwardModal setModalOpen={setModalOpen} />}
+      {modalOpen.ShareModal && <ShareModal setModalOpen={setModalOpen} />}
+      {modalOpen.CallModal && <CallModal setModalOpen={setModalOpen} />}
+      {modalOpen.EmailModal && <EmailModal setModalOpen={setModalOpen} />}
+      {modalOpen.ChatModal && <ChatModal setModalOpen={setModalOpen} />}
+      {modalOpen.SmsModal && <SmsModal setModalOpen={setModalOpen} />}
+      {modalOpen.UpiPaymentModal && <UpiPaymentModal setModalOpen={setModalOpen} />}
+      {copied && <span className="tooltip-text" ref={tooltipRef} style={position}>Copied</span>}
+    </div>
+
+  );
 
 }
 

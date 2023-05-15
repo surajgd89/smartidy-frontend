@@ -9,7 +9,6 @@ function About({ setModalOpen, handleCopyClipboard }) {
    const userData = useSelector(state => state.idyUser.data);
 
 
-
    const [day, setDay] = useState('');
 
    useEffect(() => {

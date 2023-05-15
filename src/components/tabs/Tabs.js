@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import './Tabs.scss';
 import { useSelector } from 'react-redux';
-function Tabs({ tabs }) {
+function Tabs({ tabsRef }) {
 
     const userData = useSelector(state => state.idyUser.data);
     const { business } = userData;
@@ -10,48 +10,57 @@ function Tabs({ tabs }) {
 
 
     const location = useLocation();
-    const tabFloor = useRef();
+    const tabFloorRef = useRef();
+
     const { pathname, search } = location;
-    const [dimensions, setDimensions] = useState({
-        width: 0,
-        left: 0,
-    });
-    const [Innerloading, setInnerloading] = useState(true);
-    const InnerPageLoader = () => {
-        setInnerloading(true);
+
+    const [dimensions, setDimensions] = useState();
+
+
+
+    const [loading, setLoading] = useState(true);
+
+    const loader = () => {
+        setLoading(true);
         setTimeout(() => {
-            setInnerloading(false);
+            setLoading(false);
         }, 1500);
     };
+
+
     const handleClick = (e) => {
         let getWidth = e.currentTarget.offsetWidth;
         let getLeft = e.currentTarget.offsetLeft;
-
         setDimensions({
             width: getWidth,
             left: getLeft,
         });
-        InnerPageLoader();
+        loader();
     };
+
     useEffect(() => {
-        let IsActive = document.querySelector('.tabs a.active');
-        setTimeout(() => {
-            setDimensions({
-                width: IsActive.offsetWidth,
-                left: IsActive.offsetLeft,
-            });
-        }, 1500)
-        InnerPageLoader();
+        if (tabFloorRef.current) {
+            console.log(tabFloorRef.current)
+            // const isActive = document.querySelector('.tabs a.active');
+            // let getWidth = isActive.offsetWidth;
+            // let getLeft = isActive.offsetLeft;
+            // setDimensions({
+            //     width: getWidth,
+            //     left: getLeft,
+            // });
+        }
+        loader();
     }, []);
 
     return (
         <>
-            {Innerloading ? <div className="page-loader"></div> : <Outlet />}
-            <div ref={tabs}
+            {loading ? <div className="page-loader"></div> : <Outlet />}
+            <div ref={tabsRef}
                 className={`tabs ${pathname === '/home' ? '' : 'primary-tabs'
                     }`}>
                 <NavLink
                     to={`home${search}`}
+
                     onClick={(e) => {
                         handleClick(e);
                     }}>
@@ -66,6 +75,7 @@ function Tabs({ tabs }) {
                 </NavLink>
                 <NavLink
                     to={`about${search}`}
+
                     onClick={(e) => {
                         handleClick(e);
                     }}>
@@ -80,6 +90,7 @@ function Tabs({ tabs }) {
                 </NavLink>
                 <NavLink
                     to={`gallery${search}`}
+
                     onClick={(e) => {
                         handleClick(e);
                     }}>
@@ -92,10 +103,10 @@ function Tabs({ tabs }) {
                         </span>
                     </span>
                 </NavLink>
-
                 {(upiId || paymentGateway || bankAccount) &&
                     <NavLink
                         to={`payus${search}`}
+
                         onClick={(e) => {
                             handleClick(e);
                         }}>
@@ -111,7 +122,7 @@ function Tabs({ tabs }) {
                 }
                 <div
                     className="tabs-floor"
-                    ref={tabFloor}
+                    ref={tabFloorRef}
                     style={dimensions}
                 ></div>
             </div>
