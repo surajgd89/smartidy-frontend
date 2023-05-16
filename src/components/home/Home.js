@@ -19,7 +19,7 @@ function Home({ setModalOpen, tabsRef }) {
    const socialRef = useRef("");
 
 
-   const [isBusinessProfile, setIsBusinessProfile] = useState(userData.config.IsBusinessProfile);
+   const [activeBusinessProfile, setActiveBusinessProfile] = useState(userData.config.IsBusinessProfile);
    const [boxStyle, setBoxStyle] = useState({ minHeight: 'auto' });
 
    const StyleCalculation = async () => {
@@ -39,7 +39,7 @@ function Home({ setModalOpen, tabsRef }) {
          setTimeout(() => { StyleCalculation() }, 100)
       }
       window.addEventListener('resize', handleResize)
-   }, [isBusinessProfile]);
+   }, [activeBusinessProfile]);
 
    const BusinessProfile = () => {
 
@@ -124,7 +124,7 @@ function Home({ setModalOpen, tabsRef }) {
       <div className="page home">
          <div className="profile" ref={profileRef}>
             <div className="top">
-               <a href="#" onClick={(e) => { e.preventDefault(); setIsBusinessProfile(true); }} className={`${isBusinessProfile ? 'active' : ''}`}>
+               <a href="#" onClick={(e) => { e.preventDefault(); setActiveBusinessProfile(true); }} className={`${activeBusinessProfile ? 'active' : ''}`}>
                   <i className="fa-light fa-building"></i>
                   <span>
                      <label className="en">Business</label>
@@ -132,7 +132,7 @@ function Home({ setModalOpen, tabsRef }) {
                      <label className="hn">व्यवसाय</label>
                   </span>
                </a>
-               <a href="#" onClick={(e) => { e.preventDefault(); setIsBusinessProfile(false) }} className={`${isBusinessProfile ? '' : 'active'}`}>
+               <a href="#" onClick={(e) => { e.preventDefault(); setActiveBusinessProfile(false) }} className={`${activeBusinessProfile ? '' : 'active'}`}>
                   <i className="fa-light fa-user-tie"></i>
                   <span>
                      <label className="en">Individual</label>
@@ -142,7 +142,7 @@ function Home({ setModalOpen, tabsRef }) {
                </a>
             </div>
             <div className={`middle ${userData.config.isPicTypeCircle ? 'circle' : 'square'}`}>
-               {isBusinessProfile ? <BusinessProfile /> : <IndividualProfile />}
+               {activeBusinessProfile ? <BusinessProfile /> : <IndividualProfile />}
             </div>
             <div className="bottom">
                <a href="#" onClick={(e) => { e.preventDefault(); setModalOpen({ VisitModal: true }) }} className="visit-us ">

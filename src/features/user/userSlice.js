@@ -5,12 +5,12 @@ import axios from 'axios';
 const API_USER_URL = `http://localhost:3000/user`;
 
 //FETCH User
-export const fetchUser = createAsyncThunk('users/fetchUser', async (userId) => {
+export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
    try {
       const response = await axios.get(`${API_USER_URL}?userId=${userId}`);
       return response.data[0];
    } catch (error) {
-      throw Error(error.response.data.error);
+      throw Error(`Failed to fetch user. ${error}`);
    }
 });
 

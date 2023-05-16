@@ -19,28 +19,22 @@ import SmsModal from './components/modals/SmsModal';
 import UpiPaymentModal from './components/modals/UpiPaymentModal';
 
 function App() {
-
-
+  const dispatch = useDispatch();
   const userId = new URLSearchParams(window.location.search).get('userId');
   const loading = useSelector(state => state.idyUser.loading);
   const error = useSelector(state => state.idyUser.error);
   const userData = useSelector(state => state.idyUser.data);
 
-
-
-
-
   //Users
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchUser(userId))
-  }, []);
+  const { config } = { ...userData };
+  const { language, theme } = { ...config };
+  const { primaryColor, titleColor } = { ...theme };
 
-
-  // const { config } = userData;
-  // let { theme, language } = { ...config };
-  // let { primaryColor, titleColor } = { ...theme };
-
+  const themeStyle = {
+    "--primary": primaryColor,
+    "--primary-dark": ColorLuminance(primaryColor, -0.10),
+    "--title-color": titleColor
+  }
 
   const [copied, setCopied] = useState(false);
   const [position, setPosition] = useState({ left: 'initial', top: 'initial' });
@@ -87,6 +81,9 @@ function App() {
     return rgb;
   }
 
+  useEffect(() => {
+    dispatch(fetchUser(userId))
+  }, [dispatch]);
 
   if (loading) {
     return <div className="loader"></div>;
@@ -96,11 +93,8 @@ function App() {
     return <div>Error: {error}</div>;
   }
 
-
-
   return (
-    <div className="wrapper" data-lang={userData.config.language} style={{ "--primary": userData.theme.primaryColor, "--primary-dark": ColorLuminance(userData.theme.primaryColor, -0.10), "--title-color": userData.theme.titleColor }
-    }>
+    <div className="wrapper" data-lang={language} style={themeStyle}>
       <div className="inner-body">
         <BrowserRouter>
           <Routes>
@@ -123,8 +117,7 @@ function App() {
       {modalOpen.UpiPaymentModal && <UpiPaymentModal setModalOpen={setModalOpen} />}
       {copied && <span className="tooltip-text" ref={tooltipRef} style={position}>Copied</span>}
     </div>
-
-  );
+  )
 
 }
 

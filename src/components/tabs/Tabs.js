@@ -11,12 +11,14 @@ function Tabs({ tabsRef }) {
 
     const location = useLocation();
     const tabFloorRef = useRef();
+    const navActiveRef = useRef();
 
     const { pathname, search } = location;
 
     const [dimensions, setDimensions] = useState();
 
 
+    const [isActiveNavlink, setIsActiveNavlink] = useState();
 
     const [loading, setLoading] = useState(true);
 
@@ -39,16 +41,14 @@ function Tabs({ tabsRef }) {
     };
 
     useEffect(() => {
-        if (tabFloorRef.current) {
-            console.log(tabFloorRef.current)
-            // const isActive = document.querySelector('.tabs a.active');
-            // let getWidth = isActive.offsetWidth;
-            // let getLeft = isActive.offsetLeft;
-            // setDimensions({
-            //     width: getWidth,
-            //     left: getLeft,
-            // });
-        }
+        // if (navActiveRef.current) {
+        //     let getWidth = navActiveRef.current.offsetWidth;
+        //     let getLeft = navActiveRef.current.offsetLeft;
+        //     setDimensions({
+        //         width: getWidth,
+        //         left: getLeft,
+        //     });
+        // }
         loader();
     }, []);
 
@@ -60,7 +60,7 @@ function Tabs({ tabsRef }) {
                     }`}>
                 <NavLink
                     to={`home${search}`}
-
+                    // className={(state) => state.isActive ? navActiveRef : ''}
                     onClick={(e) => {
                         handleClick(e);
                     }}>
@@ -75,7 +75,7 @@ function Tabs({ tabsRef }) {
                 </NavLink>
                 <NavLink
                     to={`about${search}`}
-
+                    // ref={(state) => state.isActive ? navActiveRef : ''}
                     onClick={(e) => {
                         handleClick(e);
                     }}>
@@ -90,7 +90,7 @@ function Tabs({ tabsRef }) {
                 </NavLink>
                 <NavLink
                     to={`gallery${search}`}
-
+                    // ref={(state) => state.isActive ? navActiveRef : ''}
                     onClick={(e) => {
                         handleClick(e);
                     }}>
@@ -106,7 +106,7 @@ function Tabs({ tabsRef }) {
                 {(upiId || paymentGateway || bankAccount) &&
                     <NavLink
                         to={`payus${search}`}
-
+                        // ref={(state) => state.isActive ? navActiveRef : ''}
                         onClick={(e) => {
                             handleClick(e);
                         }}>
