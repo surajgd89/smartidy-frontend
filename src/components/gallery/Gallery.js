@@ -11,9 +11,9 @@ import { useSelector } from 'react-redux';
 
 function Gallery({ setModalOpen }) {
 
-   const data = useSelector(state => state.idyUser.data);
-   const gallery = data.business.gallery;
-   const videos = data.business.videos;
+   const userData = useSelector(state => state.idyUser.data);
+   const gallery = userData.business.gallery;
+   const videos = userData.business.videos;
 
    const [clickedImg, setClickedImg] = useState(null);
    const [currentIndex, setCurrentIndex] = useState(null);

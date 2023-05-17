@@ -12,6 +12,7 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
 
    const userData = useSelector(state => state.idyUser.data);
 
+
    const accountDetails = () => {
       const name = userData.business.bankAccount.name;
       const bank = userData.business.bankAccount.bank;
@@ -21,6 +22,8 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
       const branch = userData.business.bankAccount.branch;
       return `Name:${name},\nBank Name: ${bank},\nAccount No : ${number},\nIFSC Code: ${ifsc},\nAccount Type : ${type},\<n></n>Branch : ${branch}`
    }
+
+
    return (
       <div className="page payus">
          <div className="header">
@@ -36,7 +39,6 @@ function PayUs({ setModalOpen, handleCopyClipboard }) {
             </div>
          </div>
          <div className="content">
-
             {userData.business.upiId != null ?
                <div className="upi-sec">
                   <a onClick={() => { setModalOpen({ 'UpiPaymentModal': true }) }} className="upi-btn ">

@@ -1,8 +1,4 @@
-import './App.scss';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUser } from './features/user/userSlice';
+
 
 import Home from './components/home/Home';
 import About from './components/about/About';
@@ -18,14 +14,20 @@ import ChatModal from './components/modals/ChatModal';
 import SmsModal from './components/modals/SmsModal';
 import UpiPaymentModal from './components/modals/UpiPaymentModal';
 
+import './App.scss';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser } from './features/user/userSlice';
+
 function App() {
   const dispatch = useDispatch();
   const userId = new URLSearchParams(window.location.search).get('userId');
   const loading = useSelector(state => state.idyUser.loading);
   const error = useSelector(state => state.idyUser.error);
   const userData = useSelector(state => state.idyUser.data);
+  console.log(userData)
 
-  //Users
   const { config } = { ...userData };
   const { language, theme } = { ...config };
   const { primaryColor, titleColor } = { ...theme };
@@ -85,6 +87,7 @@ function App() {
     dispatch(fetchUser(userId))
   }, [dispatch]);
 
+
   if (loading) {
     return <div className="loader"></div>;
   }
@@ -94,29 +97,34 @@ function App() {
   }
 
   return (
-    <div className="wrapper" data-lang={language} style={themeStyle}>
-      <div className="inner-body">
-        <BrowserRouter>
-          <Routes>
-            <Route path={`/`} element={<Tabs tabsRef={tabsRef} />}>
-              <Route index path={`home`} element={<Home setModalOpen={setModalOpen} tabsRef={tabsRef} />} />
-              <Route path={`about`} element={<About setModalOpen={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
-              <Route path={`gallery`} element={<Gallery setModalOpen={setModalOpen} />} />
-              <Route path={`payus`} element={<PayUs setModalOpen={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </div>
-      {modalOpen.VisitModal && <VisitModal setModalOpen={setModalOpen} />}
-      {modalOpen.ForwardModal && <ForwardModal setModalOpen={setModalOpen} />}
-      {modalOpen.ShareModal && <ShareModal setModalOpen={setModalOpen} />}
-      {modalOpen.CallModal && <CallModal setModalOpen={setModalOpen} />}
-      {modalOpen.EmailModal && <EmailModal setModalOpen={setModalOpen} />}
-      {modalOpen.ChatModal && <ChatModal setModalOpen={setModalOpen} />}
-      {modalOpen.SmsModal && <SmsModal setModalOpen={setModalOpen} />}
-      {modalOpen.UpiPaymentModal && <UpiPaymentModal setModalOpen={setModalOpen} />}
-      {copied && <span className="tooltip-text" ref={tooltipRef} style={position}>Copied</span>}
-    </div>
+    <>
+      {userData &&
+        <div className="wrapper" data-lang={language} style={themeStyle}>
+          <div className="inner-body">
+            <BrowserRouter>
+              <Routes>
+                <Route path={`/`} element={<Tabs tabsRef={tabsRef} />}>
+                  <Route index path={`home`} element={<Home setModalOpen={setModalOpen} tabsRef={tabsRef} />} />
+                  <Route path={`about`} element={<About setModalOpen={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
+                  <Route path={`gallery`} element={<Gallery setModalOpen={setModalOpen} />} />
+                  <Route path={`payus`} element={<PayUs setModalOpen={setModalOpen} handleCopyClipboard={handleCopyClipboard} />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </div>
+          {modalOpen.VisitModal && <VisitModal setModalOpen={setModalOpen} />}
+          {modalOpen.ForwardModal && <ForwardModal setModalOpen={setModalOpen} />}
+          {modalOpen.ShareModal && <ShareModal setModalOpen={setModalOpen} />}
+          {modalOpen.CallModal && <CallModal setModalOpen={setModalOpen} />}
+          {modalOpen.EmailModal && <EmailModal setModalOpen={setModalOpen} />}
+          {modalOpen.ChatModal && <ChatModal setModalOpen={setModalOpen} />}
+          {modalOpen.SmsModal && <SmsModal setModalOpen={setModalOpen} />}
+          {modalOpen.UpiPaymentModal && <UpiPaymentModal setModalOpen={setModalOpen} />}
+          {copied && <span className="tooltip-text" ref={tooltipRef} style={position}>Copied</span>}
+        </div>
+      }
+    </>
+
   )
 
 }

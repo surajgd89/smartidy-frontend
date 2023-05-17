@@ -8,19 +8,14 @@ function Tabs({ tabsRef }) {
     const { business } = userData;
     let { upiId, paymentGateway, bankAccount } = { ...business };
 
-
     const location = useLocation();
-    const tabFloorRef = useRef();
-    const navActiveRef = useRef();
-
     const { pathname, search } = location;
+    const tabFloorRef = useRef();
 
-    const [dimensions, setDimensions] = useState();
 
-
-    const [isActiveNavlink, setIsActiveNavlink] = useState();
-
+    const [dimensions, setDimensions] = useState({ width: '0', left: '0' });
     const [loading, setLoading] = useState(true);
+
 
     const loader = () => {
         setLoading(true);
@@ -40,17 +35,20 @@ function Tabs({ tabsRef }) {
         loader();
     };
 
+
     useEffect(() => {
-        // if (navActiveRef.current) {
-        //     let getWidth = navActiveRef.current.offsetWidth;
-        //     let getLeft = navActiveRef.current.offsetLeft;
-        //     setDimensions({
-        //         width: getWidth,
-        //         left: getLeft,
-        //     });
-        // }
+        if (tabsRef.current) {
+            let activeElm = tabsRef.current.querySelector('.active');
+            if (activeElm) {
+                setDimensions({
+                    width: activeElm.offsetWidth,
+                    left: activeElm.offsetLeft,
+                });
+            }
+        }
         loader();
     }, []);
+
 
     return (
         <>
@@ -60,7 +58,6 @@ function Tabs({ tabsRef }) {
                     }`}>
                 <NavLink
                     to={`home${search}`}
-                    // className={(state) => state.isActive ? navActiveRef : ''}
                     onClick={(e) => {
                         handleClick(e);
                     }}>
@@ -75,7 +72,6 @@ function Tabs({ tabsRef }) {
                 </NavLink>
                 <NavLink
                     to={`about${search}`}
-                    // ref={(state) => state.isActive ? navActiveRef : ''}
                     onClick={(e) => {
                         handleClick(e);
                     }}>
@@ -90,7 +86,6 @@ function Tabs({ tabsRef }) {
                 </NavLink>
                 <NavLink
                     to={`gallery${search}`}
-                    // ref={(state) => state.isActive ? navActiveRef : ''}
                     onClick={(e) => {
                         handleClick(e);
                     }}>
@@ -106,7 +101,6 @@ function Tabs({ tabsRef }) {
                 {(upiId || paymentGateway || bankAccount) &&
                     <NavLink
                         to={`payus${search}`}
-                        // ref={(state) => state.isActive ? navActiveRef : ''}
                         onClick={(e) => {
                             handleClick(e);
                         }}>
@@ -125,7 +119,7 @@ function Tabs({ tabsRef }) {
                     ref={tabFloorRef}
                     style={dimensions}
                 ></div>
-            </div>
+            </div >
         </>
     );
 }
