@@ -23,12 +23,12 @@ import { fetchUser } from './features/user/userSlice';
 function App() {
   const dispatch = useDispatch();
   const userId = new URLSearchParams(window.location.search).get('userId');
-  const loading = useSelector(state => state.idyUser.loading);
-  const error = useSelector(state => state.idyUser.error);
-  const userData = useSelector(state => state.idyUser.data);
-  console.log(userData)
 
-  const { config } = { ...userData };
+
+  const idyUser = useSelector(state => state.idyUser);
+
+  const { data, loading, error } = idyUser;
+  const { config } = { ...data };
   const { language, theme } = { ...config };
   const { primaryColor, titleColor } = { ...theme };
 
@@ -39,7 +39,7 @@ function App() {
   }
 
   const [copied, setCopied] = useState(false);
-  const [position, setPosition] = useState({ left: 'initial', top: 'initial' });
+  const [tooltipStyle, setTooltipStyle] = useState({ left: 'initial', top: 'initial' });
   const tabsRef = useRef("");
   const tooltipRef = useRef("");
 
@@ -60,11 +60,11 @@ function App() {
     setTimeout(() => {
       let left = e.pageX - (tooltipRef.current.clientWidth / 2);
       let top = e.pageY - (tooltipRef.current.clientHeight + 14);
-      setPosition({ left: left, top: top });
+      setTooltipStyle({ left: left, top: top });
     }, 300)
     setTimeout(() => {
       setCopied(false);
-      setPosition({ left: 'initial', top: 'initial' })
+      setTooltipStyle({ left: 'initial', top: 'initial' })
     }, 1500)
   }
 
@@ -98,8 +98,9 @@ function App() {
 
   return (
     <>
-      {userData &&
+      {data &&
         <div className="wrapper" data-lang={language} style={themeStyle}>
+
           <div className="inner-body">
             <BrowserRouter>
               <Routes>
@@ -120,7 +121,7 @@ function App() {
           {modalOpen.ChatModal && <ChatModal setModalOpen={setModalOpen} />}
           {modalOpen.SmsModal && <SmsModal setModalOpen={setModalOpen} />}
           {modalOpen.UpiPaymentModal && <UpiPaymentModal setModalOpen={setModalOpen} />}
-          {copied && <span className="tooltip-text" ref={tooltipRef} style={position}>Copied</span>}
+          {copied && <span className="tooltip-text" ref={tooltipRef} style={tooltipStyle}>Copied</span>}
         </div>
       }
     </>

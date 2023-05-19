@@ -1,13 +1,21 @@
 import { useState, useEffect } from "react";
 import moment from 'moment/moment';
 import { useSelector } from 'react-redux';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import './About.scss';
 
 function About({ setModalOpen, handleCopyClipboard }) {
 
    const userData = useSelector(state => state.idyUser.data);
+
    const [day, setDay] = useState('');
+
+   const getFileExtn = (url) => {
+      let filename = url.split('/');
+      return filename[3]
+   }
 
    useEffect(() => {
       setDay(moment().isoWeekday())
@@ -28,49 +36,58 @@ function About({ setModalOpen, handleCopyClipboard }) {
             </div>
          </div>
          <div className="content">
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-building"></i>
-                  <div className="lbl" >
-                     <label className="en">Business Name</label>
-                     <label className="mr">व्यवसायाचे नाव</label>
-                     <label className="hn">व्यवसाय का नाम</label>
+
+            {userData.business.name &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-building"></i>
+                     <div className="lbl" >
+                        <label className="en">Business Name</label>
+                        <label className="mr">व्यवसायाचे नाव</label>
+                        <label className="hn">व्यवसाय का नाम</label>
+                     </div>
+                  </div>
+                  <div className="data">
+                     <div className="val business-name">{userData.business.name}</div>
                   </div>
                </div>
-               <div className="data">
-                  <div className="val business-name">{userData.business.name}</div>
-               </div>
-            </div>
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-user-tie"></i>
-                  <div className="lbl" >
-                     <label className="en">Designation</label>
-                     <label className="mr">पद</label>
-                     <label className="hn">पद</label>
+            }
+
+            {userData.business.designation &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-user-tie"></i>
+                     <div className="lbl" >
+                        <label className="en">Designation</label>
+                        <label className="mr">पद</label>
+                        <label className="hn">पद</label>
+                     </div>
+                  </div>
+                  <div className="data">
+                     <div className="val">{userData.business.designation}</div>
                   </div>
                </div>
-               <div className="data">
-                  <div className="val">{userData.business.designation}</div>
-               </div>
-            </div>
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-briefcase"></i>
-                  <div className="lbl">
-                     <label className="en">About Business</label>
-                     <label className="mr">व्यवसायाबद्दल</label>
-                     <label className="hn">व्यवसाय के बारे में</label>
+            }
+
+            {userData.business.about &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-briefcase"></i>
+                     <div className="lbl">
+                        <label className="en">About Business</label>
+                        <label className="mr">व्यवसायाबद्दल</label>
+                        <label className="hn">व्यवसाय के बारे में</label>
+                     </div>
+                  </div>
+                  <div className="data">
+                     <div className="val">
+                        {userData.business.about.map((element, index) => {
+                           return (<p key={index}>{element}</p>)
+                        })}
+                     </div>
                   </div>
                </div>
-               <div className="data">
-                  <div className="val">
-                     {userData.business.about.map((element, index) => {
-                        return (<p key={index}>{element}</p>)
-                     })}
-                  </div>
-               </div>
-            </div>
+            }
 
             {userData.business.services &&
                <div className="data-row">
@@ -93,6 +110,7 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                </div>
             }
+
             {userData.business.eFiles &&
                <div className="data-row">
                   <div className="title">
@@ -108,8 +126,13 @@ function About({ setModalOpen, handleCopyClipboard }) {
                         <div className="efiles-sec">
                            {userData.business.eFiles.map((element, index) => {
                               return (
-                                 <a href={element.src} className="e-file" key={index} download>
-                                    <span className="file-ico"><i className={`fa-light ${element.type === "pdf" && 'fa-file-pdf'} ${element.type === "doc" && 'fa-file-word'} ${element.type === "xls" && 'fa-file-excel'} ${element.type === "ppt" && 'fa-file-powerpoint'}`}></i></span>
+                                 <a href={element.url} title="_blank" className="e-file" key={index}>
+                                    <span className="file-ico">
+                                       <i className={`fa-light 
+                                       ${getFileExtn(element.url) === "file" ? 'fa-file file' : ''} 
+                                       ${getFileExtn(element.url) === "document" ? 'fa-file-word document' : ''} 
+                                       ${getFileExtn(element.url) === "spreadsheets" ? 'fa-file-excel spreadsheets' : ''} 
+                                       ${getFileExtn(element.url) === "presentation" ? 'fa-file-powerpoint presentation' : ''}`}></i></span>
                                     <span className="file-name">{element.title}</span>
                                     <span className="file-act-ico"><i className="fad fa-download"></i></span>
                                  </a>
@@ -120,24 +143,26 @@ function About({ setModalOpen, handleCopyClipboard }) {
                   </div>
                </div>
             }
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-map-marked-alt"></i>
 
-                  <div className="lbl">
-                     <label className="en">Address</label>
-                     <label className="mr">पत्ता</label>
-                     <label className="hn">पता</label>
+            {userData.business.address &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-map-marked-alt"></i>
+                     <div className="lbl">
+                        <label className="en">Address</label>
+                        <label className="mr">पत्ता</label>
+                        <label className="hn">पता</label>
+                     </div>
                   </div>
+                  <div className="data">
+                     <div className="val">
+                        <span>{userData.business.address}</span>
+                        <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.address) }}></i>
+                     </div>
+                  </div>
+               </div>
+            }
 
-               </div>
-               <div className="data">
-                  <div className="val">
-                     <span>{userData.business.address}</span>
-                     <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.address) }}></i>
-                  </div>
-               </div>
-            </div>
             {userData.business.gstin &&
                <div className="data-row">
                   <div className="title">
@@ -148,12 +173,12 @@ function About({ setModalOpen, handleCopyClipboard }) {
                      <div className="val">
                         <span>{userData.business.gstin}</span>
                         <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.gstin) }}>
-
                         </i>
                      </div>
                   </div>
                </div>
             }
+
             {userData.business.msme &&
                <div className="data-row">
                   <div className="title">
@@ -184,80 +209,87 @@ function About({ setModalOpen, handleCopyClipboard }) {
                </div>
             }
 
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-envelope"></i>
+            {userData.business.email &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-envelope"></i>
+                     <div className="lbl">
+                        <label className="en">Email</label>
+                        <label className="mr">ई-मेल</label>
+                        <label className="hn">ई-मेल</label>
+                     </div>
+                  </div>
+                  <div className="data">
+                     <div className="val"><a href={`mailto:${userData.business.email}`} target="_blank"
+                        className="link">{userData.business.email}</a><i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.email) }}></i>
+                     </div>
+                  </div>
+               </div>
+            }
 
-                  <div className="lbl">
-                     <label className="en">Email</label>
-                     <label className="mr">ई-मेल</label>
-                     <label className="hn">ई-मेल</label>
+            {userData.business.call &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-phone"></i>
+                     <div className="lbl">
+                        <label className="en">Call</label>
+                        <label className="mr">कॉल</label>
+                        <label className="hn">कॉल</label>
+                     </div>
                   </div>
+                  <div className="data">
+                     <div className="val"><span>{userData.business.call}</span><i
+                        className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.call) }}
+                     ></i>
+                     </div>
+                  </div>
+               </div>
+            }
 
-               </div>
-               <div className="data">
-                  <div className="val"><a href={`mailto:${userData.business.email}`}
-                     className="link">{userData.business.email}</a><i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.email) }}></i>
+            {userData.business.website &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-globe"></i>
+                     <div className="lbl">
+                        <label className="en">Website</label>
+                        <label className="mr">संकेतस्थळ</label>
+                        <label className="hn">वेबसाइट</label>
+                     </div>
+                  </div>
+                  <div className="data">
+                     <div className="val"><a href={userData.business.website}
+                        className="link" target="_blank">{userData.business.website}</a><i
+                           className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.website) }}></i>
+                     </div>
                   </div>
                </div>
-            </div>
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-phone"></i>
-                  <div className="lbl">
-                     <label className="en">Call</label>
-                     <label className="mr">कॉल</label>
-                     <label className="hn">कॉल</label>
-                  </div>
-               </div>
-               <div className="data">
+            }
 
+            {userData.config.smartIdyUrl &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-link"></i>
+                     <div className="lbl">SmartIDy URL</div>
+                  </div>
+                  <div className="data">
+                     <div className="val">
+                        <a href={userData.config.smartIdyUrl} className="link smartidy-url" target="_blank">{userData.config.smartIdyUrl}</a>
+                        <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.config.smartIdyUrl) }}></i>
+                     </div>
+                  </div>
+               </div>
+            }
 
-                  <div className="val"><span>{userData.business.call}</span><i
-                     className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.call) }}
-                  ></i>
+            {userData.business.workingDayHrs &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-clock"></i>
+                     <div className="lbl">
+                        <label className="en">Business Hours</label>
+                        <label className="mr">व्यवसायाची वेळ</label>
+                        <label className="hn">व्यवसाय का समय</label>
+                     </div>
                   </div>
-               </div>
-            </div>
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-globe"></i>
-                  <div className="lbl">
-                     <label className="en">Website</label>
-                     <label className="mr">संकेतस्थळ</label>
-                     <label className="hn">वेबसाइट</label>
-                  </div>
-               </div>
-               <div className="data">
-                  <div className="val"><a href={userData.business.website}
-                     className="link">{userData.business.website}</a><i
-                        className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.website) }}></i>
-                  </div>
-               </div>
-            </div>
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-link"></i>
-                  <div className="lbl">SmartIDy URL</div>
-               </div>
-               <div className="data">
-                  <div className="val">
-                     <a href={userData.config.smartIdyUrl} className="link smartidy-url">{userData.config.smartIdyUrl}</a>
-                     <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.config.smartIdyUrl) }}></i>
-                  </div>
-               </div>
-            </div>
-            <div className="data-row">
-               <div className="title">
-                  <i className="fa-light fa-clock"></i>
-                  <div className="lbl">
-                     <label className="en">Business Hours</label>
-                     <label className="mr">व्यवसायाची वेळ</label>
-                     <label className="hn">व्यवसाय का समय</label>
-                  </div>
-               </div>
-
-               {userData.business.workingDayHrs &&
                   <div className="data">
                      <div className="val">
                         <ul className="buss-hrs-sec">
@@ -282,10 +314,39 @@ function About({ setModalOpen, handleCopyClipboard }) {
                         </ul>
                      </div>
                   </div>
-               }
-            </div>
+               </div>
+            }
+
+            {userData.business.media &&
+               <div className="data-row">
+                  <div className="title">
+                     <i className="fa-light fa-bullhorn"></i>
+                     <div className="lbl">
+                        <label className="en">News & Events, PR, Media Advertisement</label>
+                        <label className="mr">संकेतस्थळ</label>
+                        <label className="hn">वेबसाइट</label>
+                     </div>
+                  </div>
+                  <div className="data">
+                     <div className="val">
+                        <div className="media-sec">
+                           {userData.business.media.src && <div className="media-image"><LazyLoadImage effect="blur" src={userData.business.media.src} /></div>}
+                           {userData.business.media.title && <div className="media-title">{userData.business.media.title}</div>}
+                           {userData.business.media.data && <div className="media-data">{userData.business.media.data}</div>}
+                           {userData.business.media.url &&
+                              <>
+                                 <a href={userData.business.media.url} className="link smartidy-url" target="_blank">{userData.business.media.url}</a>
+                                 <i className="fa-light fa-clone copy-to-clipboard" onClick={(e) => { handleCopyClipboard(e, userData.business.media.url) }}></i>
+                              </>
+                           }
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            }
+
          </div>
-      </div>
+      </div >
    )
 }
 export default About;

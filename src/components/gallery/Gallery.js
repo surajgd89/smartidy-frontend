@@ -6,14 +6,16 @@ import noImageIcon from '../../assets/images/no-image.png';
 import noVideoIcon from '../../assets/images/no-video.png';
 import GalleryPhotoDefault from '../../assets/images/gallery-default.jpg'
 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import { useSelector } from 'react-redux';
 
 
 function Gallery({ setModalOpen }) {
 
    const userData = useSelector(state => state.idyUser.data);
-   const gallery = userData.business.gallery;
-   const videos = userData.business.videos;
+   const { gallery, videos } = userData.business;
 
    const [clickedImg, setClickedImg] = useState(null);
    const [currentIndex, setCurrentIndex] = useState(null);
@@ -74,7 +76,7 @@ function Gallery({ setModalOpen }) {
             </div>
             <div className="content">
 
-               <div className={`gallery-sec ${gallery != null ? '' : 'not-configured'}`}>
+               <div className={`gallery-sec ${gallery ? '' : 'not-configured'}`}>
                   <div className="title">
                      <label className="en">Photos</label>
                      <label className="mr">छायाचित्रे</label>
@@ -87,17 +89,18 @@ function Gallery({ setModalOpen }) {
                   </div>
                   <div className="images-area ">
 
-                     {gallery != null ?
+                     {gallery ?
                         <div className="images-list">
-
-                           {gallery.map((element, index) => {
+                           {gallery.map((imgSrc, index) => {
                               return (
-                                 <div className="img-item" key={index} onClick={() => handleClick(element, index)}>
-                                    <img src={element.src != null ? element.src : GalleryPhotoDefault} />
+                                 <div className="img-item" key={index} onClick={() => handleClick(imgSrc, index)}>
+                                    <LazyLoadImage
+                                       effect="blur"
+                                       src={imgSrc ? imgSrc : GalleryPhotoDefault}
+                                    />
                                  </div>
                               )
                            })}
-
                         </div>
                         : <div className="info-message">
                            <img className="info-ico" src={noImageIcon} alt="" />
@@ -112,8 +115,7 @@ function Gallery({ setModalOpen }) {
                </div>
 
 
-
-               <div className={`gallery-sec ${videos != null ? '' : 'not-configured'}`}>
+               <div className={`gallery-sec ${videos ? '' : 'not-configured'}`}>
                   <div className="title">
                      <label className="en">Videos</label>
                      <label className="mr">व्हिडीओ</label>
@@ -125,7 +127,7 @@ function Gallery({ setModalOpen }) {
                      <label className="hn">कुछ व्यावसायिक विडिओ</label>
                   </div>
                   <div className="videos-area">
-                     {videos != null ?
+                     {videos ?
                         <div className="videos-list">
 
                            {videos.map((element, index) => {
@@ -144,7 +146,8 @@ function Gallery({ setModalOpen }) {
                               <label className="mr">क्षमस्व ! व्हिडीओ नाहीत.</label>
                               <label className="hn">क्षमस्व ! कोई विडिओ नहीं।</label>
                            </div>
-                        </div>}
+                        </div>
+                     }
 
                   </div>
                </div>

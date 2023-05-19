@@ -36,7 +36,7 @@ function CallModal({ setModalOpen }) {
                </div>
             </div>
          </div>
-      </div >
+      </div>
 
    );
 }

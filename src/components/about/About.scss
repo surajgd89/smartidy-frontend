@@ -174,6 +174,19 @@
                                 i {
                                     margin: 0;
                                     font-size: 20px;
+
+                                    &.document {
+                                        color: #236beb;
+                                    }
+                                    &.spreadsheets {
+                                        color: #00a257;
+                                    }
+                                    &.presentation {
+                                        color: #f6b601;
+                                    }
+                                    &.file {
+                                        color: #cc0507;
+                                    }
                                 }
                             }
 
@@ -233,6 +246,31 @@
                             &:last-child {
                                 border-bottom: 0;
                             }
+                        }
+                    }
+
+                    .media-sec {
+                        margin-top: 15px;
+                        width: 100%;
+                        padding: 0;
+
+                        .media-image {
+                            margin-bottom: 10px;
+                            img {
+                                max-width: 100%;
+                                border-radius: 6px;
+                            }
+                        }
+                        .media-title {
+                            font-size: 18px;
+                            font-weight: 600;
+                            margin-bottom: 10px;
+                        }
+                        .media-data {
+                            margin-bottom: 10px;
+                        }
+                        .media-link {
+                            color: var(--link);
                         }
                     }
                 }

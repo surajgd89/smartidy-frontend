@@ -3,6 +3,9 @@ import moment from 'moment/moment';
 import vCardsJS from 'vcards-js';
 import { saveAs } from 'file-saver';
 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
+
 import ProfilePhotoDefault from '../../assets/images/profile-photo-default.jpg';
 import BusinessLogoDefault from '../../assets/images/business-logo-default.jpg';
 
@@ -12,15 +15,13 @@ import './Home.scss';
 
 function Home({ setModalOpen, tabsRef }) {
 
-
    const userData = useSelector(state => state.idyUser.data);
 
    const profileRef = useRef("");
    const socialRef = useRef("");
 
-
    const [activeBusinessProfile, setActiveBusinessProfile] = useState(userData.config.IsBusinessProfile);
-   const [boxStyle, setBoxStyle] = useState({ minHeight: 'auto' });
+   const [homeActionStyle, setHomeActionStyle] = useState({ minHeight: 'auto' });
 
    const StyleCalculation = async () => {
       let profileHeight = profileRef.current.offsetHeight;
@@ -30,7 +31,7 @@ function Home({ setModalOpen, tabsRef }) {
          socialHeight = 0;
       }
       let minHt = `calc(100vh - ${profileHeight + tabsHeight + socialHeight}px)`;
-      return setBoxStyle({ minHeight: minHt })
+      return setHomeActionStyle({ minHeight: minHt })
    }
 
    useEffect(() => {
@@ -40,7 +41,6 @@ function Home({ setModalOpen, tabsRef }) {
       }
       window.addEventListener('resize', handleResize)
    }, [activeBusinessProfile]);
-
    const BusinessProfile = () => {
 
       const ServiceYrCalc = () => {
@@ -57,7 +57,10 @@ function Home({ setModalOpen, tabsRef }) {
       return (
          <div id="business" className="profile-item">
             <a className="image" href="#" onClick={(e) => { e.preventDefault(); }}>
-               <img src={userData.business.logo != null ? userData.business.logo : BusinessLogoDefault} />
+               <LazyLoadImage
+                  effect="opacity"
+                  src={userData.business.logo ? userData.business.logo : BusinessLogoDefault}
+               />
             </a>
             <div className="head" id="businessName">
                <label className="en">{userData.business.name}</label>
@@ -88,7 +91,10 @@ function Home({ setModalOpen, tabsRef }) {
       return (
          <div id="individual" className="profile-item">
             <a className="image" href="#" onClick={(e) => { e.preventDefault(); }}>
-               <img src={userData.individual.profilePic != null ? userData.individual.profilePic : ProfilePhotoDefault} />
+               <LazyLoadImage
+                  effect="opacity"
+                  src={userData.individual.profilePic ? userData.individual.profilePic : ProfilePhotoDefault}
+               />
             </a>
             <div className=" head" id="individualName">
                <label>{userData.individual.name}</label>
@@ -123,6 +129,7 @@ function Home({ setModalOpen, tabsRef }) {
    return (
       <div className="page home">
          <div className="profile" ref={profileRef}>
+
             <div className="top">
                <a href="#" onClick={(e) => { e.preventDefault(); setActiveBusinessProfile(true); }} className={`${activeBusinessProfile ? 'active' : ''}`}>
                   <i className="fa-light fa-building"></i>
@@ -142,17 +149,20 @@ function Home({ setModalOpen, tabsRef }) {
                </a>
             </div>
             <div className={`middle ${userData.config.isPicTypeCircle ? 'circle' : 'square'}`}>
+
                {activeBusinessProfile ? <BusinessProfile /> : <IndividualProfile />}
             </div>
             <div className="bottom">
-               <a href="#" onClick={(e) => { e.preventDefault(); setModalOpen({ VisitModal: true }) }} className="visit-us ">
-                  <div className="ico"><i className="fa-light fa-external-link-square"></i></div>
-                  <div className="name">
-                     <label className="en">Links</label>
-                     <label className="mr">लिंक्स</label>
-                     <label className="hn">लिंक्स</label>
-                  </div>
-               </a>
+               {userData.business.links &&
+                  <a href="#" onClick={(e) => { e.preventDefault(); setModalOpen({ VisitModal: true }) }} className="visit-us ">
+                     <div className="ico"><i className="fa-light fa-external-link-square"></i></div>
+                     <div className="name">
+                        <label className="en">Links</label>
+                        <label className="mr">लिंक्स</label>
+                        <label className="hn">लिंक्स</label>
+                     </div>
+                  </a>
+               }
                <a href="#" onClick={(e) => { e.preventDefault(); setModalOpen({ ForwardModal: true }) }} className="share-one ">
                   <div className="ico"><i className="fa-light fa-share"></i></div>
                   <div className="name">
@@ -179,7 +189,7 @@ function Home({ setModalOpen, tabsRef }) {
                </a>
             </div>
          </div>
-         <div className="home-actions" style={boxStyle}>
+         <div className="home-actions" style={homeActionStyle}>
             <a href="#" onClick={(e) => { e.preventDefault(); setModalOpen({ CallModal: true }) }} className="">
                <span>
                   <i className="fa-light fa-phone"></i>
