@@ -25,9 +25,8 @@ function App() {
   const userId = new URLSearchParams(window.location.search).get('userId');
 
 
-  const idyUser = useSelector(state => state.idyUser);
-
-  const { data, loading, error } = idyUser;
+  const userData = useSelector(state => state.idyUser);
+  const { data, loading, error } = userData;
   const { config } = { ...data };
   const { language, theme } = { ...config };
   const { primaryColor, titleColor } = { ...theme };
