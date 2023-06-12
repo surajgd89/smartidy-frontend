@@ -18,13 +18,11 @@ import './App.scss';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUser } from './features/user/userSlice';
+import { getUser } from './features/user/userSlice';
 
 function App() {
   const dispatch = useDispatch();
-  const userId = new URLSearchParams(window.location.search).get('userId');
-
-
+  const searchQuery = new URLSearchParams(window.location.search).toString();
   const userData = useSelector(state => state.idyUser);
   const { data, loading, error } = userData;
   const { config } = { ...data };
@@ -83,8 +81,8 @@ function App() {
   }
 
   useEffect(() => {
-    dispatch(fetchUser(userId))
-  }, [dispatch]);
+    dispatch(getUser(searchQuery));
+  }, [dispatch, searchQuery]);
 
 
   if (loading) {
