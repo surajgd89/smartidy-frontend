@@ -20,16 +20,16 @@ function Gallery({ setModalOpen }) {
    const [clickedImg, setClickedImg] = useState(null);
    const [currentIndex, setCurrentIndex] = useState(null);
 
-   const handleClick = (element, index) => {
+   const handleClick = (src, index) => {
       setCurrentIndex(index);
-      setClickedImg(element.src);
+      setClickedImg(src);
    };
 
    const handelRotationRight = () => {
       const totalLength = gallery.length;
       if (currentIndex + 1 >= totalLength) {
          setCurrentIndex(0);
-         const newUrl = gallery[0].src;
+         const newUrl = gallery[0];
          setClickedImg(newUrl);
          return;
       }
@@ -37,7 +37,7 @@ function Gallery({ setModalOpen }) {
       const newUrl = gallery.filter((item) => {
          return gallery.indexOf(item) === newIndex;
       });
-      const newItem = newUrl[0].src;
+      const newItem = newUrl[0];
       setClickedImg(newItem);
       setCurrentIndex(newIndex);
    };
@@ -46,7 +46,7 @@ function Gallery({ setModalOpen }) {
       const totalLength = gallery.length;
       if (currentIndex === 0) {
          setCurrentIndex(totalLength - 1);
-         const newUrl = gallery[totalLength - 1].src;
+         const newUrl = gallery[totalLength - 1];
          setClickedImg(newUrl);
          return;
       }
@@ -54,7 +54,7 @@ function Gallery({ setModalOpen }) {
       const newUrl = gallery.filter((item) => {
          return gallery.indexOf(item) === newIndex;
       });
-      const newItem = newUrl[0].src;
+      const newItem = newUrl[0];
       setClickedImg(newItem);
       setCurrentIndex(newIndex);
    };
